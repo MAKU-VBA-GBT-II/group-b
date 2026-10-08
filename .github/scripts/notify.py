@@ -2,27 +2,39 @@ import os
 import json
 import requests
 
-with open(os.environ["GITHUB_EVENT_PATH"]) as f:
+event_path = os.environ.get("GITHUB_EVENT_PATH")
+with open(event_path, "r", encoding="utf-8") as f:
     event = json.load(f)
 
-issue = event["issue"]
-number = issue["number"]
-title = issue["title"]
-body = issue.get("body") or "Açık yok."
-labels = ", ".join([l["name"] for l in issue.get("labels", [])])
+issue = event.get("issue", {})
+number = issue.get("number", "0")
+title = issue.get("title", "Başlıksız")
+body = issue.get("body") or "Açıklama yok."
+html_url = issue.get("html_url", "")
+labels = ", ".join([l["name"] for l in issue.get("labels", [])]) or "Etiket yok"
 
 message = (
-    f"📌 *Görev geldi!*\n"
-    f"• Issue: #{number}\n"
+    f"📌 Yeni Görev / Issue Geldi!\n\n"
+    f"• Numara: #{number}\n"
     f"• Başlık: {title}\n"
-    f"• İçerik: {body}\n"
-    f"• Etiket: {labels}"
+    f"• Etiketler: {labels}\n"
+    f"• Link: {html_url}\n\n"
+    f"📝 Açıklama:\n{body}"
 )
 
-bot_token = os.environ["TELEGRAM_BOT_TOKEN"]
-chat_id = os.environ["TELEGRAM_CHAT_ID"]
-requests.post(
-    f"https://api.telegram.org/bot{bot_token}/sendMessage",
-    json={"chat_id": chat_id, "text": message}
-)
-print("✅ Bildirim gönderildi.")
+bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
+chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+
+if not bot_token or not chat_id:
+    raise ValueError(f"HATA: Secret'lar okunamadı! TOKEN: {bool(bot_token)}, CHAT_ID: {bool(chat_id)}")
+
+url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+response = requests.post(url, json={"chat_id": chat_id, "text": message})
+
+print(f"Telegram Durum Kodu: {response.status_code}")
+print(f"Telegram Cevabı: {response.text}")
+
+if response.status_code != 200:
+    raise Exception(f"Mesaj iletilemedi: {response.text}")
+
+print("✅ Bildirim başarıyla iletildi.")
