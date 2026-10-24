@@ -12,11 +12,12 @@ description: Grup B'nin (Lojistik / Sevkiyatlar) haftalık sprint raporunu repor
 - Hafta numarası (örn. `03`) ve haftanın tarih aralığı
 - Depo: `MAKU-VBA-GBT-II/group-b`
 - O haftanın Issue'ları: G1-veri, G1-analiz, G1-gorsel, G1-test
-- Proje panosu: <Logistics Intelligence Network (LIN) GRUP-B PANOSU> (To Do → In Progress → Done)
+- Proje panosu: [Logistics Intelligence Network (LIN) GRUP-B PANOSU](https://github.com/MAKU-VBA-GBT-II/group-b/projects) (veya organizasyon genel panosu)
+  - *Not:* Proje panosuna doğrudan erişilemiyorsa veya yetki yoksa, raporda pano durumunun doğrulanamadığı açıkça belirtilir; planlanan ve yapılan işler doğrulaması doğrudan GitHub Issue'ları ve `git log` commit kayıtları üzerinden yürütülür. Ajan asla varsayımsal veya uydurma pano durumu üretmez.
 
 ## Adımlar
 
-1. **Planlananları topla:** Issue'ları listele (numara, başlık, atanan kişi, son tarih, kabul kriteri).
+1. **Planlananları topla:** Issue'ları listele (numara, başlık, atanan kişi, son tarih, kabul kriteri). Proje panosu erişilebilir durumdaysa kolon durumlarını (To Do / In Progress / Done) doğrula; erişilemiyorsa doğrudan Issue ve commit geçmişini esas al.
 2. **Yapılanları doğrula:** Her Issue için kanıt yorumunu ve ilgili commit'i bul. Kabul kriterini dosyayı açıp gerçekten say ve kontrol et, tahmin etme:
    - `data/lojistik-sevkiyat.csv` var mı, en az 100 satır mı?
    - `docs/analiz-g1.md` içinde en az 5 metrik ve bulgular bölümü var mı?
