@@ -29,6 +29,8 @@ description: G1 lojistik sevkiyat verisi ve DQ analiz metriklerine göre standar
    - Issue açıklamasındaki planlanan başlıkta *"Ocak–Haziran 2026"* ifadesi geçmektedir; ancak `docs/veri-sozlugu-g1.md` ve `docs/analiz-g1.md` ile doğrulanmış veri kümesi yalnızca **1 Ocak–31 Mart 2026** dönemini içermektedir.
    - Proje kuralları gereği sentetik veri uydurulmaz veya tahmin üretilmez.
    - Bu nedenle zaman serisi grafiği **"Aylık Sevkiyat Sayısı (Ocak–Mart 2026)"** başlığı ve kapsamıyla üretilir.
+4. **Dosya ve Bağımlılık Doğrulaması:**
+   - Kod çalıştırmadan önce `src/grafik_uret.py` betiğinin repoda mevcut olduğu ve gerekli kütüphanelerin (`pandas`, `matplotlib`, `seaborn`) kurulu olduğu doğrulanmalıdır. Dosya mevcut değilse veya ortam hazır değilse komut çalıştırılamaz.
 
 ## Grafik Tanımları ve Standartları
 
@@ -65,13 +67,35 @@ description: G1 lojistik sevkiyat verisi ve DQ analiz metriklerine göre standar
 * **Tipografi:** Sans-serif (Segoe UI, Arial, DejaVu Sans), başlıklar 14-16pt kalın (bold), eksen etiketleri 11-12pt, veri etiketleri 10pt.
 * **Marjinler:** Başlık ve etiketlerin kırpılmaması için `bbox_inches='tight'` ile kaydedilir.
 
+## Kullanılan Dosyalar ve Bağımlılıklar
+
+* **Okur:**
+  * `data/lojistik-sevkiyat.csv` (Sentetik lojistik sevkiyat veri seti)
+  * `docs/analiz-g1.md` (DQ tarafından doğrulanan metrik tanımları ve değerleri)
+* **Çalıştırır:**
+  * `src/grafik_uret.py` (FE grafik üretim ve görselleştirme betiği)
+* **Yazar:**
+  * `visuals/zaman-serisi.png` (Aylık sevkiyat trend çizgisi)
+  * `visuals/kirilim.png` (Taşıma moduna göre ortalama ücret kırılımı)
+  * `visuals/taslak-grafikler.png` (Ön taslak yerleşim çizimi)
+* **Bağımlılıklar:**
+  * Python 3
+  * `pandas`, `matplotlib`, `seaborn`
+  * Kurulum:
+    ```bash
+    pip install pandas matplotlib seaborn
+    ```
+
 ## Çalıştırma Talimatı
 
-Taslak onaylandıktan sonra grafikler aşağıdaki komutla üretilir:
-
-```bash
-python src/grafik_uret.py
-```
+1. Gerekli bağımlılıkların kurulu olduğunu doğrula:
+   ```bash
+   pip install pandas matplotlib seaborn
+   ```
+2. Depo kökünde `src/grafik_uret.py` dosyasının mevcut olduğunu kontrol et ve çalıştır:
+   ```bash
+   python src/grafik_uret.py
+   ```
 
 ## Bitiş ve Teslim Koşulları
 
