@@ -1,5 +1,5 @@
 # Veri Sözlüğü — Lojistik Sevkiyat Verisi (Görev 1)
-**Sürüm:** v1.1 · **BE:** Sema Coşkun · **DQ:** Aykut Çakıcı · **Tarih:** 2026-10-17
+**Sürüm:** v1.2 · **BE:** Sema Coşkun · **DQ:** Aykut Çakıcı · **Tarih:** 2026-10-17
 
 ## Veri Kümesi: data/lojistik-sevkiyat.csv
 | Alan | Tip | Kural/Aralık | Örnek |
@@ -25,3 +25,4 @@
 ## Değişiklik Günlüğü
 - v1 — ilk sürüm (2026-10-17)
 - v1.1 — agirlik_kg aralığı 10-5000 kg yapıldı (DQ Aykut Çakıcı kararı, #17 test kriteriyle tutarlılık); teslim süresi ortalamasında iptallerin hariç tutulduğu eklendi (2026-10-17)
+- v1.2 — Üretim betiği sözlük kurallarını dosya yazılmadan önce dogrula() ile denetler; veri değişmedi (#39, #45) (2026-10-25)

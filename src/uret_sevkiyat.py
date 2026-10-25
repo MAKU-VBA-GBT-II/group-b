@@ -29,6 +29,13 @@ DURUM_AGIRLIK = [75, 20, 5]
 BASLIK = ["sevkiyat_id", "tarih", "cikis_sehri", "varis_sehri", "tasima_modu",
           "agirlik_kg", "mesafe_km", "ucret_tl", "teslim_suresi_saat", "durum"]
 
+SEHIRLER = {"Istanbul", "Ankara", "Izmir", "Bursa", "Konya", "Adana", "Antalya"}
+
+# docs/veri-sozlugu-g1.md icindeki sutun adlari ve sirasi
+SEMA_SUTUNLARI = ["sevkiyat_id", "tarih", "cikis_sehri", "varis_sehri",
+                  "tasima_modu", "agirlik_kg", "mesafe_km", "ucret_tl",
+                  "teslim_suresi_saat", "durum"]
+
 
 def uret(satir_sayisi=SATIR_SAYISI, tohum=TOHUM):
     rng = random.Random(tohum)
@@ -58,28 +65,43 @@ def uret(satir_sayisi=SATIR_SAYISI, tohum=TOHUM):
 
 
 def dogrula(veri):
-    """Sozluk kurallarini dosya yazilmadan once kontrol eder; hata varsa durur."""
+    """Sozluk (v1.1) kurallarini dosya yazilmadan once kontrol eder; hata varsa durur."""
+    if BASLIK != SEMA_SUTUNLARI:
+        raise ValueError("Sutun adlari veya sirasi sozlukle uyusmuyor")
     if len(veri) < 100:
         raise ValueError("En az 100 satir gerekli")
     if len({s[4] for s in veri}) < 4:
         raise ValueError("tasima_modu'nda en az 4 farkli deger gerekli")
     kimlikler = set()
     for s in veri:
+        if len(s) != len(SEMA_SUTUNLARI):
+            raise ValueError(f"Alan sayisi {len(SEMA_SUTUNLARI)} degil: {s[0]}")
         sid, tarih, cikis, varis, mod, agirlik, mesafe, ucret, sure, durum = s
+        if not re.fullmatch(r"SVK-\d{4}", sid):
+            raise ValueError(f"sevkiyat_id bicimi hatali: {sid}")
         if sid in kimlikler:
             raise ValueError(f"Tekrarlanan sevkiyat_id: {sid}")
         kimlikler.add(sid)
-        if not "2026-01-01" <= tarih <= "2026-03-31":
-            raise ValueError(f"Tarih aralik disi: {sid}")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", tarih) or not "2026-01-01" <= tarih <= "2026-03-31":
+            raise ValueError(f"Tarih bicimi veya araligi hatali: {sid}")
+        if cikis not in SEHIRLER or varis not in SEHIRLER:
+            raise ValueError(f"Gecersiz sehir: {sid}")
         if cikis == varis:
             raise ValueError(f"Cikis ve varis sehri ayni: {sid}")
-        if not 10 <= agirlik <= 5000:
-            raise ValueError(f"agirlik_kg aralik disi: {sid}")
+        if mod not in MODLAR:
+            raise ValueError(f"Gecersiz tasima_modu: {sid}")
+        if durum not in DURUMLAR:
+            raise ValueError(f"Gecersiz durum: {sid}")
+        if not isinstance(agirlik, int) or not 10 <= agirlik <= 5000:
+            raise ValueError(f"agirlik_kg tam sayi degil veya 10-5000 disinda: {sid}")
+        if not isinstance(mesafe, int) or mesafe <= 0:
+            raise ValueError(f"mesafe_km pozitif tam sayi degil: {sid}")
         if not re.fullmatch(r"\d+\.\d{2}", ucret):
             raise ValueError(f"ucret_tl 2 ondalikli degil: {sid}")
-        if durum == "iptal" and sure != "":
-            raise ValueError(f"Iptalde teslim suresi bos olmali: {sid}")
-        if durum != "iptal" and not re.fullmatch(r"\d+\.\d", sure):
+        if durum == "iptal":
+            if sure != "":
+                raise ValueError(f"Iptalde teslim suresi bos olmali: {sid}")
+        elif not re.fullmatch(r"\d+\.\d", sure):
             raise ValueError(f"teslim_suresi_saat 1 ondalikli degil: {sid}")
 
 
