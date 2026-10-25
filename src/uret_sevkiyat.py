@@ -1,6 +1,7 @@
 import csv
 import os
 import random
+import re
 from datetime import date, timedelta
 
 TOHUM = 42
@@ -47,18 +48,44 @@ def uret(satir_sayisi=SATIR_SAYISI, tohum=TOHUM):
         if durum == "gecikmeli":
             sure += rng.uniform(6, 48)
         # Iptal edilen sevkiyatta teslim suresi bos birakilir
-        sure_deger = "" if durum == "iptal" else round(sure, 1)
+        sure_metin = "" if durum == "iptal" else f"{round(sure, 1):.1f}"
+        ucret_metin = f"{ucret:.2f}"
         tarih = baslangic + timedelta(days=rng.randint(0, 89))
         satirlar.append([tarih.isoformat(), a, b, mod, agirlik, mesafe,
-                         ucret, sure_deger, durum])
+                         ucret_metin, sure_metin, durum])
     satirlar.sort(key=lambda s: s[0])
     return [[f"SVK-{i + 1:04d}"] + s for i, s in enumerate(satirlar)]
- 
+
+
+def dogrula(veri):
+    """Sozluk kurallarini dosya yazilmadan once kontrol eder; hata varsa durur."""
+    if len(veri) < 100:
+        raise ValueError("En az 100 satir gerekli")
+    if len({s[4] for s in veri}) < 4:
+        raise ValueError("tasima_modu'nda en az 4 farkli deger gerekli")
+    kimlikler = set()
+    for s in veri:
+        sid, tarih, cikis, varis, mod, agirlik, mesafe, ucret, sure, durum = s
+        if sid in kimlikler:
+            raise ValueError(f"Tekrarlanan sevkiyat_id: {sid}")
+        kimlikler.add(sid)
+        if not "2026-01-01" <= tarih <= "2026-03-31":
+            raise ValueError(f"Tarih aralik disi: {sid}")
+        if cikis == varis:
+            raise ValueError(f"Cikis ve varis sehri ayni: {sid}")
+        if not 10 <= agirlik <= 5000:
+            raise ValueError(f"agirlik_kg aralik disi: {sid}")
+        if not re.fullmatch(r"\d+\.\d{2}", ucret):
+            raise ValueError(f"ucret_tl 2 ondalikli degil: {sid}")
+        if durum == "iptal" and sure != "":
+            raise ValueError(f"Iptalde teslim suresi bos olmali: {sid}")
+        if durum != "iptal" and not re.fullmatch(r"\d+\.\d", sure):
+            raise ValueError(f"teslim_suresi_saat 1 ondalikli degil: {sid}")
+
 
 def main():
     veri = uret()
-    assert len(veri) >= 100
-    assert len({s[4] for s in veri}) >= 4
+    dogrula(veri)
     klasor = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
     os.makedirs(klasor, exist_ok=True)
     yol = os.path.join(klasor, "lojistik-sevkiyat.csv")
