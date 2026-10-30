@@ -1,24 +1,26 @@
 # AGENTS.md GRUP-B Logistics Intelligence Network(LIN) SKİLL Envanteri
 
-Bu repo, Şirket B (Lojistik) için sentetik sevkiyat veri hattı içerir.
+Bu repo, Şirket B (Lojistik) için parametreli sentetik sevkiyat veri hattı içerir.
 Ajan, görev aldığında ilgili `SKILL.md` dosyasını okuyup talimatları izlemelidir.
 
 | Skill | Konum | Sahibi | Ne işe yarar | Nasıl kullanılır |
 |---|---|---|---|---|
-| be-veri | `skills/be-veri/SKILL.md` | BE SEMA COŞKUN | Sabit tohumla 300 satırlık sevkiyat verisi üretir | `python src/uret_sevkiyat.py` |
-| dq-analiz | `skills/dq-analiz/SKILL.md` | DQ · Aykut Çakıcı | Sevkiyat verisinden metrik, gözlem ve eylem önerisi çıkarır | Görev #15 için önce bu skill'i oku; `docs/analiz-g1.md` dosyasını hazırla ve G1-gorsel'e devret |
-| fe-gorsel | `skills/fe-gorsel/SKILL.md` | FE · Ece Naz Aktürk | G1 lojistik sevkiyat verisinden zaman serisi ve taşıma modu kırılım grafiklerini üretir | `python src/grafik_uret.py` (taslak Issue'ya eklendikten sonra) |
-| dq-test | `skills/dq-test/SKILL.md` | DQ | Sevkiyat verisi için en az 5 manuel test senaryosu tanımlar; gerçekleşen sonuç alanlarını boş bırakır | Görev #17 için önce bu dosyayı oku; senaryoları `tests/test-cases.md` içine yaz |
-| pm-rapor | `skills/pm-rapor/SKILL.md` | Sude ÇUKURTAŞ PM | Haftalık raporu commit/Issue geçmişinden hazırlar | Ajana: "pm-rapor skill'ini oku" |
+| dq-sozluk | `skills/dq-sozluk/SKILL.md` | DQ — Ece Naz Aktürk | G2 veri şeması, parametreleri ve analiz planını tanımlar | Görev #46 için bu skill'i oku; `docs/veri-sozlugu.md` hazırla |
+| be-simulasyon | `skills/be-simulasyon/SKILL.md` | BE — Aykut Çakıcı | Parametreli lojistik sevkiyat simülasyon verisi üretir | `python src/simulasyon.py` |
+| fe-gorsel | `skills/fe-gorsel/SKILL.md` | FE — Sema Coşkun | G2 simülasyon verisinden 3 grafik üretir (zaman serisi, kırılım, dağılım) | `python src/grafik_uret.py` (taslak Issue'ya eklendikten sonra) |
+| dq-analiz | `skills/dq-analiz/SKILL.md` | DQ — Ece Naz Aktürk | Sevkiyat verisinden 5 metrik, gözlem ve eylem önerisi çıkarır | Görev #49 için bu skill'i oku; `docs/analiz-g2.md` hazırla |
+| dq-test | `skills/dq-test/SKILL.md` | DQ — Ece Naz Aktürk | G2 test senaryolarını tanımlar ve PR doğrulamasını yürütür | Görev #50 için bu skill'i oku; `tests/test-cases.md` hazırla |
+| pm-rapor | `skills/pm-rapor/SKILL.md` | PM — Sude Çukurtaş | Haftalık raporu commit/Issue geçmişinden hazırlar | Ajana: "pm-rapor skill'ini oku" |
 
-## Devir teslim zinciri
-BE veri → DQ analiz → FE görsel → DQ test → PM rapor.
+## Devir teslim zinciri (Görev 2)
+DQ şema/sözlük → BE veri simülasyonu (ve paralel FE taslak) → DQ BE PR inceleme/onay → DQ analiz & FE nihai görseller → DQ test & PM rapor.
 Her adım ilgili Issue'ya commit hash'li yorumla biter.
 > Kural: Roller görevden göreve döner (plan §1.3); skill'ler rolle birlikte el değiştirir. Yeni sahibi skill'i günceller ve bu tablodaki "Sahibi" sütununu değiştirir.
+
 ## Kurallar
-- Veri sentetiktir; gerçek kişi verisi yok.
-- Veri üretimi tohum 42 ile tekrarlanabilir.
-- Yeni skill eklenince bu dosya güncellenir.
+- Veri sentetiktir; gerçek kişi veya firma verisi asla depoya girmez.
+- Veri üretimi sabit tohumla tekrarlanabilir olmalıdır.
+- Yeni skill eklendikçe bu dosya güncellenir.
 - "GitHub'da yoksa, yapılmamıştır": her iş bir Issue'ya bağlıdır; bitince Issue'ya kanıt yorumu (commit hash + dosya) yazılır.
 - Gerçek kişi verisi asla depoya girmez; tüm veriler simülasyon ürünüdür.
 - Veri üretimi sabit tohumla tekrarlanabilir olmalıdır.
