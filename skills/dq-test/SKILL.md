@@ -1,47 +1,41 @@
-# DQ Test Skill'i — G1-TEST
+---
+name: dq-test
+description: Görev 2 lojistik sevkiyat verisi için 10 veri kalite test senaryosunu tanımlar, src/test_calistir.py ile otomatik çalıştırır ve test-log.md'ye kaydeder.
+---
+
+# DQ Test Skill'i — G2-TEST
 
 ## Amaç
+Bu skill, Görev 2 kapsamında üretilen `data/lojistik_sevkiyat_g2.csv` dosyasının ve `src/simulasyon.py` betiğinin `docs/veri-sozlugu.md` (v2.0) kurallarına tam uyumunu denetleyen 10 test senaryosunu (`tests/test-cases.md`) yönetir, testleri otomatik koşarak sonuçları `tests/test-log.md` dosyasına işler.
 
-`data/lojistik-sevkiyat.csv` için açık, tekrarlanabilir ve elle uygulanabilir veri kalitesi test senaryoları tanımla. Bu görev senaryoları yazma görevidir; testleri çalıştırma ve sonuçları doldurma Hafta 4'e aittir.
+## Girdiler
+1. GitHub Issue #50 `G2-test` kabul kriterleri.
+2. Nihai veri kümesi: `data/lojistik_sevkiyat_g2.csv` (commit [`869dd1b`](https://github.com/MAKU-VBA-GBT-II/group-b/commit/869dd1b)).
+3. Referans Veri Sözlüğü: `docs/veri-sozlugu.md` (v2.0).
+4. Simülasyon betiği: `src/simulasyon.py`.
 
-## Gerekli kaynaklar
+## İş Akışı ve Adımlar
+1. Eski Görev 1 test senaryolarını `tests/test-cases-g1.md` dosyasına arşivle.
+2. `tests/test-cases.md` dosyasına 10 ana senaryoyu tanımla (dosya varlığı, 900 satır, 10 sütun, benzersiz ID, 60 günlük periyot, 8 merkez & rota, 4 mod, sayısal aralıklar, iptalde boş süre kuralı, tohum=42 tekrarlanabilirlik).
+3. `src/test_calistir.py` test koşucu betiğini çalıştır:
+   ```bash
+   python src/test_calistir.py
+   ```
+4. Koşum sonuçlarını (tüm testlerin geçtiğini) `tests/test-log.md` dosyasına tarihli olarak kaydet.
+5. `feature/test-g2` dalından PR aç, merge et ve Issue #50'yi kapat.
 
-1. GitHub Issue #17 `G1-TEST` kabul kriterleri.
-2. GitHub Issue #14 `G1-SEKTÖR VERİSİ`.
-3. BE'nin teslim ettiği `docs/veri-sozlugu-g1.md` ve veri dosyası. Bunlar henüz yoksa önerilen şemaya göre taslak oluştur ve şema kesinleşince güncelle.
+## Örnek Girdi ve Çıktı
+### Girdi:
+> "Görev 2 nihai verisini test senaryolarına göre çalıştır ve günlüğe kaydet."
+### Çıktı Parçası:
+```markdown
+No   Senaryo Adı                                   Durum      Açıklama
+1    Dosya Varlığı ve UTF-8 Okuma                  GEÇTİ      UTF-8 okundu; 900 veri satırı mevcut
+9    Durum Kategorileri ve İptalde Teslim Süresi   GEÇTİ      49 iptal kaydında teslim süresi tam boş
+SONUÇ: 10/10 TEST BAŞARIYLA GEÇTİ.
+```
 
-## İş akışı
-
-1. Önce Issue #17 ve Issue #14'ü oku.
-2. Veri sözlüğündeki alan adlarını, türleri, aralıkları ve kategorileri Issue'lardaki beklentilerle karşılaştır. Çelişki varsa veri sözlüğünü esas al ve belirsizliği senaryoda belirt.
-3. `tests/test-cases.md` dosyasına en az beş senaryo yaz. Her senaryo için numara, senaryo adı, adımlar ve beklenen sonucu açıkça belirt.
-4. Issue #17'deki dosya, satır sayısı, sütun şeması, tür/aralık ve kategori kontrollerini kapsa. Aynı çıkış-varış şehri olmaması bonus senaryosudur.
-5. "Gerçekleşen sonuç" hücresini her senaryoda boş bırak. Test çalıştırma veya başarı iddiası ekleme.
-6. Senaryoları veri dosyasını henüz mevcut ve doğru kabul etmeden yaz; beklenen sonucu ölçülebilir şekilde tarif et.
-
-## Çıktı biçimi
-
-`tests/test-cases.md` içinde aşağıdaki sütunları sırayla kullan:
-
-`No | Senaryo | Adımlar | Beklenen sonuç | Gerçekleşen sonuç`
-
-En az beş ana senaryo zorunludur. Ek senaryoları bonus olarak açıkça işaretle. Gerçekleşen sonuç hücreleri boş Markdown hücreleri (`|  |`) olmalıdır.
-
-## Issue #17 kapsamı
-
-- `data/lojistik-sevkiyat.csv` dosyasının bulunması ve okunabilmesi.
-- En az 100 veri satırı; hedef 300 satır.
-- Şemayla aynı 10 sütun ve sütun sırası/adları.
-- `sevkiyat_id` benzersiz olmalı ve `SVK-0001`–`SVK-0300` biçiminde olmalı.
-- `tarih` `yyyy-mm-dd` biçiminde, 2026-01-01 ile 2026-03-31 arasında olmalı; `agirlik_kg` 10–5000, `mesafe_km` 50–2500, `ucret_tl` sıfırdan büyük olmalı.
-- Şehirler veri sözlüğündeki izinli listede olmalı; çıkış ve varış şehirleri farklı olmalı.
-- `tasima_modu`: `kara`, `deniz`, `hava`, `demiryolu`; `durum`: `zamaninda`, `gecikmeli`, `iptal`.
-- `durum` değeri `iptal` olan satırlarda `teslim_suresi_saat` boş olmalı; teslim süresi ortalaması hesaplanırken bu satırlar dışarıda tutulmalı.
-- Bonus: `cikis_sehri` ve `varis_sehri` aynı olan satır bulunmaması.
-
-## Sınırlar
-
-- Hafta 4'te çalıştırılacak testleri bu görev sırasında çalıştırma veya sonuçlarını tahmin etme.
-- Sentetik veri dışında gerçek kişisel veri kullanma.
-- BE'nin teslim etmediği dosyaları varmış gibi gösterme.
-- Çalışma tamamlandığında Issue #17'ye commit hash'i ve çıktı yollarını bildiren bir devir yorumu hazırla.
+## Reddetme Durumları
+1. **İptal Kayıtlarında Süre Kabulü:** İptal durumundaki satırlarda teslim süresi içeren veya bu kuralı esneten test talepleri doğrudan reddedilir.
+2. **Gerçek Kişi / Firma Verisi:** Sentetik olmayan veya kişisel veri içeren alan testleri reddedilir.
+3. **Manuel Sonuç Uydurma:** Testleri çalıştırmadan başarı varsayımı yapmak reddedilir; testler `src/test_calistir.py` ile fiilen doğrulanmalıdır.
