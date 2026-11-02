@@ -115,6 +115,8 @@ def grafik_mod_kirilimi(df, ornek):
     sol.set_title("Sevkiyat sayısı (iptaller dahil)", fontsize=11)
     sag.bar(MODLAR, oran, color=TURUNCU)
     sag.bar_label(sag.containers[0], fmt="%.1f")
+    sol.set_ylim(0, adet.max() * 1.12)
+    sag.set_ylim(0, oran.max() * 1.15)
     sag.set_xlabel("Taşıma modu")
     sag.set_ylabel("Gecikme oranı (%)")
     sag.set_title("Gecikme oranı (iptaller hariç)", fontsize=11)
@@ -140,13 +142,30 @@ def grafik_dagilim(df, ornek):
     fig.savefig(CIKTI / "teslimat_suresi_dagilimi.png", dpi=150)
     plt.close(fig)
 
-
+def ozet_yazdir(df):
+    """Grafiklerde çizilen sayıları yazdırır; docs/analiz-g2.md ile karşılaştırmak için."""
+    h = haftalik_ozet(df)
+    print("\n[Grafik 1] Haftalık özet (ISO haftası):")
+    print(h[["hafta", "gun", "sevkiyat", "ciro"]].to_string(index=False))
+    adet = df.groupby("tasima_modu").size().reindex(MODLAR, fill_value=0)
+    basarili = df[df["durum"] != "iptal"]
+    toplam = basarili.groupby("tasima_modu").size().reindex(MODLAR, fill_value=0)
+    geciken = basarili[basarili["durum"] == "gecikmeli"].groupby("tasima_modu").size()
+    geciken = geciken.reindex(MODLAR, fill_value=0)
+    print("\n[Grafik 2] Mod bazında sevkiyat sayısı (iptaller dahil) ve gecikme oranı:")
+    for m in MODLAR:
+        oran = geciken[m] / toplam[m] * 100 if toplam[m] else float("nan")
+        print(f"  {m}: {adet[m]} adet, gecikme oranı %{oran:.1f}")
+    sure = basarili["teslim_suresi_saat"].dropna()
+    print(f"\n[Grafik 3] Teslim süresi: {len(sure)} sevkiyat, ortalama {sure.mean():.1f} saat")
+    print(f"\nToplam: {len(df)} sevkiyat, ciro {df['ucret_tl'].sum():,.2f} TL")
 def main():
     CIKTI.mkdir(exist_ok=True)
     df, ornek = veri_yukle()
     grafik_zaman_serisi(df, ornek)
     grafik_mod_kirilimi(df, ornek)
     grafik_dagilim(df, ornek)
+    ozet_yazdir(df)
     kaynak = "ÖRNEK veri" if ornek else "gerçek veri"
     print(f"3 grafik yazıldı ({kaynak}, {len(df)} satır): {CIKTI}")
 
