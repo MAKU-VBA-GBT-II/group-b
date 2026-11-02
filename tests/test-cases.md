@@ -1,14 +1,26 @@
-# G1 Sevkiyat Veri Kalitesi Test Senaryoları
+# Görev 2 Lojistik Sevkiyat Veri Kalitesi Test Senaryoları (G2-TEST)
 
-> Senaryolar, BE'nin teslim ettiği `docs/veri-sozlugu-g1.md` v1.1 ve G1-TEST Issue #17 ile eşleştirildi. DQ kararları: ASCII alan/şehir adları, `agirlik_kg` 10–5000 kg, iptal satırlarında boş `teslim_suresi_saat` ve analiz ortalamasında iptallerin hariç tutulması. Senaryolar Hafta 4'te çalıştırılacaktır; “Gerçekleşen sonuç” alanları o zamana kadar boş bırakılır.
+**Sürüm:** v2.0  
+**Hazırlayan:** DQ — Ece Naz Aktürk (@ece-naz)  
+**Referans Veri Sözlüğü:** [`docs/veri-sozlugu.md`](../docs/veri-sozlugu.md) (v2.0)  
+**Test Edilen Dosya:** `data/lojistik_sevkiyat_g2.csv`  
+**İlgili Issue:** [#50](https://github.com/MAKU-VBA-GBT-II/group-b/issues/50)
 
-| No | Senaryo | Adımlar | Beklenen sonuç | Gerçekleşen sonuç |
+> Bu test senaryoları; Backend (BE) tarafından üretilen parametreli lojistik simülasyon verisinin şema standartlarına, veri tiplerine, değer aralıklarına, iş kurallarına ve tekrarlanabilirlik ilkelerine tam uyumunu denetler.
+
+---
+
+## Test Senaryoları Tablosu
+
+| No | Senaryo | Test Adımları | Beklenen Sonuç | Gerçekleşen Sonuç |
 |---:|---|---|---|---|
-| 1 | Sevkiyat dosyası mevcut ve okunabilir | 1. Depoda `data/lojistik-sevkiyat.csv` dosyasının bulunduğunu kontrol et. 2. CSV dosyasını UTF-8 olarak açıp başlık satırını ve en az bir veri satırını okumayı dene. | Dosya belirtilen yolda bulunur; CSV biçiminde açılır ve başlık ile veri satırları okunabilir. |  |
-| 2 | Asgari satır sayısı sağlanıyor | 1. CSV'yi başlık satırı hariç veri satırları olarak say. 2. Veri satırı sayısını kaydet. | En az 100 veri satırı vardır; hedeflenen üretim 300 satırdır. |  |
-| 3 | Sütun sayısı ve adları şemayla eşleşiyor | 1. CSV başlık satırındaki sütunları sırayla çıkar. 2. Sayıyı ve adları `docs/veri-sozlugu-g1.md` ile karşılaştır. | Tam 10 sütun bulunur ve adlar ile sıraları veri sözlüğündeki şemayla aynıdır: `sevkiyat_id`, `tarih`, `cikis_sehri`, `varis_sehri`, `tasima_modu`, `agirlik_kg`, `mesafe_km`, `ucret_tl`, `teslim_suresi_saat`, `durum`. |  |
-| 4 | Sevkiyat kimlikleri benzersiz ve biçime uygun | 1. `sevkiyat_id` sütunundaki değerleri çıkar. 2. Yinelenen değer olup olmadığını kontrol et. 3. Değerleri `SVK-0001`–`SVK-0300` biçimiyle karşılaştır. | Her kimlik benzersizdir ve `SVK-0001` ile `SVK-0300` arasındaki biçime uyar. |  |
-| 5 | Tarih, tür ve sayısal aralıklar geçerli | 1. `tarih` değerlerinin `yyyy-mm-dd` biçiminde ve 2026-01-01–2026-03-31 aralığında olduğunu kontrol et. 2. `agirlik_kg`, `mesafe_km` ve `ucret_tl` alanlarını sayısal olarak kontrol et. 3. Sınırları incele. | Tarihler geçerli biçimde ve belirtilen aralıktadır. `agirlik_kg` 10–5000 kg, `mesafe_km` 50–2500 km aralığındadır; `ucret_tl` 0'dan büyüktür. |  |
-| 6 | Kategoriler ve şehir değerleri geçerli | 1. `tasima_modu`, `durum`, `cikis_sehri` ve `varis_sehri` alanlarının benzersiz değerlerini çıkar. 2. Her değeri veri sözlüğündeki izinli değerlerle karşılaştır. | Taşıma modu yalnızca `kara`, `deniz`, `hava`, `demiryolu`; durum yalnızca `zamaninda`, `gecikmeli`, `iptal` değerleridir ve dört taşıma modu da temsil edilir. Şehirler izinli listededir. |  |
-| 7 | İptal sevkiyatlarda teslim süresi boş | 1. `durum` değeri `iptal` olan satırları seç. 2. Bu satırlardaki `teslim_suresi_saat` hücrelerini kontrol et. | İptal edilen her sevkiyat için `teslim_suresi_saat` boş/null olur; bu kayıtlar teslim süresi ortalamasına katılmaz. |  |
-| 8 | Bonus: çıkış ve varış şehirleri farklı | 1. Her satırda `cikis_sehri` ve `varis_sehri` değerlerini karşılaştır. 2. Eşit olan satırların sayısını belirle. | Aynı çıkış ve varış şehrine sahip satır bulunmaz. |  |
+| **1** | **Veri Dosyası Varlığı ve Kodlama** | 1. `data/lojistik_sevkiyat_g2.csv` dosyasının depoda mevcut olduğunu doğrula.<br>2. Dosyayı UTF-8 kodlamasında açıp başlık ve satırları oku. | Dosya mevcuttur; UTF-8 kodlamasında virgül ayracıyla açılır, başlık ve veri satırları hatasız okunur. | |
+| **2** | **Hedef Satır Sayısı Doğrulaması** | 1. CSV'deki satırları say (başlık hariç).<br>2. 60 gün × 15 sevkiyat/gün hacmini kontrol et. | Başlık hariç tam 900 veri satırı (başlıkla birlikte 901 satır) bulunur. | |
+| **3** | **Sütun Sayısı, İsimleri ve Sırası** | 1. CSV başlık satırını oku.<br>2. Sütun isimlerini ve sırasını `docs/veri-sozlugu.md` ile karşılaştır. | Tam 10 sütun bulunur ve sırası birebir eşleşir: `sevkiyat_id`, `tarih`, `cikis_sehri`, `varis_sehri`, `tasima_modu`, `agirlik_kg`, `mesafe_km`, `ucret_tl`, `teslim_suresi_saat`, `durum`. | |
+| **4** | **Kimlik Formatı ve Benzersizlik** | 1. Tüm `sevkiyat_id` değerlerini topla.<br>2. `SVK-G2-\d{4,}` regex formatını denetle.<br>3. Tekrarlanan ID olup olmadığını kontrol et. | Tüm 900 kimlik benzersizdir ve `SVK-G2-0001` formatına tam uyar. | |
+| **5** | **Tarih Formatı ve Simülasyon Periyodu** | 1. `tarih` alanının ISO `YYYY-MM-DD` formatında olduğunu doğrula.<br>2. Minimum ve maksimum tarih aralığını kontrol et. | Tüm tarihler ISO formatındadır; `2026-01-01` ile `2026-03-01` arasındaki 60 günlük periyodu kapsar. | |
+| **6** | **8 Lojistik Merkez ve Farklı Şehir Kuralı** | 1. `cikis_sehri` ve `varis_sehri` alanlarındaki değerleri 8 izinli merkezle (`Istanbul`, `Ankara`, `Izmir`, `Bursa`, `Antalya`, `Adana`, `Trabzon`, `Gaziantep`) karşılaştır.<br>2. Her satırda `cikis_sehri != varis_sehri` olduğunu denetle. | Tüm şehirler 8 merkez listesindedir; hiçbir satırda çıkış ve varış şehri aynı değildir. | |
+| **7** | **4 Taşıma Modu Temsili** | 1. `tasima_modu` alanının benzersiz değerlerini çıkar.<br>2. 4 modun (`kara`, `deniz`, `hava`, `demiryolu`) tamamının temsil edildiğini doğrula. | Yalnızca izinli 4 mod bulunur ve dördü de veri kümesinde yer alır. | |
+| **8** | **Sayısal Aralıklar ve Tipler** | 1. `agirlik_kg` (50–10000 kg tam sayı) aralığını kontrol et.<br>2. `mesafe_km` (100–1800 km tam sayı) aralığını kontrol et.<br>3. `ucret_tl` (> 0 ve tam 2 ondalık basamak) kontrolünü yap. | Tüm sayısal değerler pozitif, belirtilen aralıklarda ve beklenen veri tiplerindedir. | |
+| **9** | **Durum Kategorileri ve İptal Kuralı (Kritik)** | 1. `durum` alanının yalnızca `zamaninda`, `gecikmeli`, `iptal` değerlerini içerdiğini doğrula.<br>2. `durum == 'iptal'` olan satırlarda `teslim_suresi_saat` hücresinin boş (None/NaN) olduğunu doğrula.<br>3. Aktif sevkiyatlarda teslim süresinin pozitif ve 1 ondalıklı olduğunu denetle. | Durum değerleri geçerlidir. İptal edilen tüm satırlarda teslim süresi boştur; aktif sevkiyatlarda süre pozitiftir. | |
+| **10** | **Tohum 42 ile Deterministik Tekrarlanabilirlik** | 1. `python src/simulasyon.py --tohum 42` komutunu çalıştır.<br>2. Üretilen geçici çıktıyı depodaki nihai `data/lojistik_sevkiyat_g2.csv` ile hash/satır bazında karşılaştır. | İki üretim arasında %100 birebir eşleşme sağlanır; veri deterministiktir. | |
