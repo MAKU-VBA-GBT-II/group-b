@@ -2,7 +2,7 @@
 
 **Şirket:** Grup B — Logistics Intelligence Network (LIN) / Sevkiyatlar · **PM:** Sude Çukurtaş  
 **Tarih:** 03.11.2026  
-**Görev:** Görev 2 — Parametreli Lojistik Simülasyonu, 5 Temel Metrik Analizi, Görselleştirme ve Test Hattı (1. Hafta)  
+**Görev:** Görev 2 — Parametreli Lojistik Simülasyonu, 5 Temel Metrik Analizi, Görselleştirme ve Test Hattı 
 
 ---
 
