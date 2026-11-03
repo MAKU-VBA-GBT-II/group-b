@@ -82,12 +82,35 @@ Hafta 5 boyunca `AGENTS.md`'de tanımlanan Görev 2 devir teslim zinciri adım a
 
 ---
 
-## Gelecek Hafta Planı (Hafta 6 — Görev 2 Kapanışı, Test ve Sürüm)
+## Gelecek Hafta Planı (Hafta 6 — Görev 2 Kapanışı, Dönem Raporu 1 ve Araştırma Başvurusu)
 
-1. **Uçtan Uca Entegrasyon ve Sınır Testleri:** Simülasyon veri hattının farklı tohum ve uç parametrelerdeki davranışı test edilecek.
-2. **İyileştirme ve Hata Kayıtları:** Ekip üyeleri veri ve görselleştirme hattında en az 2 enhancement/bug kaydı açıp `Fixes #no` formatıyla çözecek.
-3. **Görev 2 Final Sürümü:** Tüm G2 gereksinimlerinin karşılandığı doğrulanıp `gorev2-final` release etiketi oluşturulacak.
-4. **Görev 3 Hazırlığı (B2B Veri Değişimi):** Partner şirketimiz Grup A ile ortak veri formatları ve entegrasyon arayüzleri planlanacak.
+Dönem planı (AGENTS.md Hafta 6), Duyuru 6 ve Duyuru 7 doğrultusunda önümüzdeki haftanın teslimat ve rol bazlı aksiyon takvimi şu şekildedir:
+
+### 1. Acil Öncelik ve İşlerin Neticelendirilmesi (Son Tarih: 5 Kasım Perşembe 23:59 — Duyuru 7)
+- **Açık Issue Kalmasın:** Takım reposundaki tüm rol Issue'ları kanıt yorumuyla (PR, commit, dosya linki) kapatılacak; tamamlanamayacak işler ise engeli ve tahmini bitiş gerekçesi açıkça yazılarak dürüstçe neticelendirilecek.
+- **Milestone Kapanışı:** Görev 2 (`Görev 2 — Mini Ürün`) milestone'una bağlı tüm işler neticelendirildikten sonra milestone kapatılacak.
+- **Pano Hijyeni:** Proje panosunda sahipsiz, yanlış sütunda veya açıkta kalan kart kalmayacak şekilde temizlik ve senkronizasyon tamamlanacak.
+
+### 2. Rol Bazlı Geliştirme ve Kapanış Görevleri (AGENTS.md Hafta 6)
+- **BE (Hata Yönetimi — Error Handling):** `src/simulasyon.py` betiğine geçersiz parametre girişleri (negatif gün sayısı, sıfır veya negatif hacim vb.) için `try/except` ve `raise ValueError` hata yönetimi eklenecek. Çalışma `fix/error-handling` dalında yürütülüp PR açılacak ve DQ onayıyla merge edilecek.
+- **DQ (Test & Kullanıcı Kılavuzu):**
+  - Merge edilmiş ürün üzerinde tam kapsamlı test koşumu gerçekleştirilecek ve `tests/test-log.md` güncellenecek.
+  - En az 2 adet somut `bug` Issue'su açılarak ilgili rollere atanacak.
+  - `docs/user-manual.md` dosyası başlatılacak: Kurulum adımları (çalışma ortamı, komutlar, parametrelerle veri üretimi) ve ekran görüntülü en az 1 kullanım senaryosu hazırlanacak.
+- **FE (Görsel Denetim ve Doğrulama):** Merge edilmiş 3 grafiğin nihai veri ve analiz çıktılarıyla (`docs/analiz-g2.md`) tam uyumu kontrol edilecek, gerekli ince görsel rötuşlar tamamlanacak.
+- **PM (Sürüm Mühürleme):** Görev 2 bitişinde repo üzerinde `gorev2-final` release'i oluşturulacak ve sürüm notları yayınlanacak; `reports/report-w06.md` sprint raporu hazırlanacak.
+
+### 3. Dönem Raporu 1 — PM'den Öğretim Elemanına (Son Tarih: 8 Kasım Pazar 23:59 — Duyuru 7)
+- **Veri Toplama:** PM, takımdaki tüm üyelerden (junior dahil) şu 3 sorunun yanıtını toplayacak:
+  1. *Ne teslim ettim?* (kanıt linkleriyle)
+  2. *Neye takıldım, nasıl aştım?*
+  3. *Bir sonraki dönem için hedefim/önerim nedir?*
+- **Raporun Yazımı ve Teslimi:** Süreç KPI'ları (açılan/kapatılan Issue, merge edilen PR, ortalama ilk inceleme süresi, üye bazlı commit/Issue sayıları, geciken iş sayısı) hesaplanacak; `reports/donem-raporu-1.md` şablonuna uygun olarak yazılıp repoya commit'lenecek.
+- **Teslim Kaydı:** Repoda *"Dönem Raporu 1 teslim"* başlıklı Issue açılıp rapor linki eklenecek ve `@eofdred` etiketlenecektir.
+
+### 4. Yan Görev 4: TÜBİTAK 2209-A Başvurusu (Son Tarih: 11 Kasım Çarşamba 17:30 — Duyuru 6)
+- Ekip üyeleri ARBİS kayıtlarını tamamlayacak, akademik danışman ve proje konularını belirleyecek.
+- TYBS sistemi üzerinden başvurular danışman onayına gönderilecek ve ekran görüntüsü ile takım reposunda `Yan Görev 4: TÜBİTAK 2209-A başvurusu (<ad>)` başlıklı Issue açılarak belgelenecektir.
 
 ---
 
