@@ -1,106 +1,83 @@
 ---
 name: fe-gorsel
-description: G1 lojistik sevkiyat verisi ve DQ analiz metriklerine göre standartlara uygun zaman serisi ve taşıma modu kırılım grafiklerini üretir.
+description: Grup B'nin Görev 2 lojistik sevkiyat verisinden (data/lojistik_sevkiyat_g2.csv) 3 grafik üretir: haftalık zaman serisi, taşıma modu kırılımı ve teslimat süresi histogramı. Görev 2 grafikleri veya bu grafiklerin yeniden üretilmesi istendiğinde kullan.
 ---
 
-# FE Görsel Skill'i — G1-GÖRSEL
+# fe-gorsel — Lojistik grafik üretimi (Görev 2)
 
 ## Amaç
+Görev 2 veri dosyasından (`data/lojistik_sevkiyat_g2.csv`) yönetim ve DQ tarafından okunabilir 3 PNG grafik üretmek. Grafikler yalnızca veri dosyasındaki değerlerden çizilir; hiçbir değer uydurulmaz.
 
-`data/lojistik-sevkiyat.csv` verisini ve `docs/analiz-g1.md` analiz sonuçlarını girdi alarak, proje görsel standartlarına tam uyumlu iki adet yüksek çözünürlüklü grafik (`visuals/zaman-serisi.png` ve `visuals/kirilim.png`) üretmek.
+## Girdiler
+- Veri: `data/lojistik_sevkiyat_g2.csv` (900 satır, şema `docs/veri-sozlugu.md` v2.0). Gerekli sütunlar: `tarih`, `tasima_modu`, `durum`, `teslim_suresi_saat`, `ucret_tl`.
+- Kod: `src/gorsel_g2.py`
+- Doğrulama: `docs/analiz-g2.md` (DQ analiz raporu, Issue #49)
 
-## Kaynaklar ve Bağımlılıklar
+## Çıktılar
+1. `visuals/zaman_serisi_haftalik.png`: İki panel. Üstte haftalık sevkiyat sayısı (adet), altta haftalık navlun geliri (TL). X ekseni ISO haftası.
+2. `visuals/mod_gecikme_kirilimi.png`: İki çubuk grafik. Solda sevkiyat sayısı (adet, iptaller dahil), sağda gecikme oranı (%, iptaller hariç).
+3. `visuals/teslimat_suresi_dagilimi.png`: Histogram. İptal dışı sevkiyatların teslim süresi (saat), ortalama çizgisiyle.
 
-1. **GitHub Issue #16 (`G1-GÖRSEL`):** Kabul kriterleri ve görsel gereksinimleri.
-2. **G1-Veri Devir Yorumu (`#16`):** `@sema788` (BE) veri devir teslimi (Commit: `a0e58a2`, `data/lojistik-sevkiyat.csv`, şema `docs/veri-sozlugu-g1.md` v1.1).
-3. **G1-Analiz Devir Yorumu (`#16`):** `@Aykuutt` (DQ) analiz devir teslimi (Commit: `64dd7e3`, `docs/analiz-g1.md`).
-4. **Veri Kümesi:** `data/lojistik-sevkiyat.csv` (300 kayıt).
-5. **Analiz ve Metrikler:** `docs/analiz-g1.md`.
+## Kararlar (DQ onayı, Issue #48)
+- **Hafta:** Pazartesi başlangıçlı ISO haftası (`YYYY-Www`). Eksik hafta ayrı blok yapılmaz. 4 günlük 2026-W01 yıldızla işaretlenir ve altına not yazılır.
+- **Sevkiyat sayısı ve ciro:** İptaller dahil.
+- **Gecikme oranı:** `gecikmeli / (zamaninda + gecikmeli) * 100`. İptaller paydada yok.
+- **Teslim süresi:** Yalnızca `durum != iptal`. `teslim_suresi_saat` boş olan satır çizilmez.
 
-## Önkoşullar ve Uyumsuzluk Yönetimi
+## Görsel kurallar
+- Her grafikte başlık, eksen etiketi ve birim olmalı (adet, TL, %, saat).
+- Türkçe karakterler (ş, ğ, ı, İ) doğru görünmeli. Para tutarları binlik ayraçla yazılmalı (ör. 3.351.304,20).
+- Kaydetme: 150 dpi PNG, `tight_layout`.
+- Renkler: mavi `#378ADD` (adet, ciro, histogram), turuncu `#EF9F27` (oran, ortalama çizgisi).
+- Veri dosyası yoksa grafiklere "ÖRNEK VERİ" damgası konur. Gerçek veriyle üretilen grafikte bu damga olmaz.
 
-1. **Devir Sıralaması:**
-   - Taslak çizimine başlamak için BE'nin `G1-veri devir yorumu` şarttır.
-   - Grafik bölümlerini ve kesin değerlerini netleştirmek için DQ'nun `G1-analiz devir yorumu` şarttır.
-   - Her iki devir de Issue #16 üzerinde tamamlanmıştır.
-2. **Taslaksız Başlangıç Yasağı:**
-   - Nihai grafikler üretilip commit edilmeden önce, grafiklerin yerleşimini ve eksenlerini gösteren bir taslak ekran görüntüsü GitHub Issue #16'ya yüklenmelidir.
-3. **Kapsam Uyumsuzluğu Kuralı:**
-   - Issue açıklamasındaki planlanan başlıkta *"Ocak–Haziran 2026"* ifadesi geçmektedir; ancak `docs/veri-sozlugu-g1.md` ve `docs/analiz-g1.md` ile doğrulanmış veri kümesi yalnızca **1 Ocak–31 Mart 2026** dönemini içermektedir.
-   - Proje kuralları gereği sentetik veri uydurulmaz veya tahmin üretilmez.
-   - Bu nedenle zaman serisi grafiği **"Aylık Sevkiyat Sayısı (Ocak–Mart 2026)"** başlığı ve kapsamıyla üretilir.
-4. **Dosya ve Bağımlılık Doğrulaması:**
-   - Kod çalıştırmadan önce `src/grafik_uret.py` betiğinin repoda mevcut olduğu ve gerekli kütüphanelerin (`pandas`, `matplotlib`, `seaborn`) kurulu olduğu doğrulanmalıdır. Dosya mevcut değilse veya ortam hazır değilse komut çalıştırılamaz.
+## Adımlar
+1. Veri dosyasının varlığını kontrol et. Yoksa BE'nin veri commit'ini `main`'e merge etmesini bekle ve Issue'ya yaz. Uydurma veriyle yeniden üretme.
+2. `python src/gorsel_g2.py` çalıştır.
+3. Terminalde "gerçek veri, 900 satır" yazmalı. "ÖRNEK veri" yazıyorsa dur ve veri dosyasını kontrol et.
+4. Terminaldeki sayıları `docs/analiz-g2.md` ile karşılaştır: toplam sevkiyat, toplam ciro, mod bazlı gecikme oranları, ortalama teslim süresi, haftalık değerler. Fark varsa grafikleri yayınlama, DQ'ya sor.
+5. PNG'leri aç. "ÖRNEK VERİ" yazısı olmamalı, yazılar çerçeveye taşmamalı.
+6. Commit mesajı: `FE: <ne değişti> (#48)`. `Fixes` kullanma; Issue PR merge edilince kapanır.
 
-## Grafik Tanımları ve Standartları
+## Kontrol listesi (commit öncesi)
+- [ ] Terminalde "gerçek veri" yazıyor
+- [ ] Toplam 900 sevkiyat, haftalık toplamlar 900 ediyor
+- [ ] Mod sayıları 900 ediyor (iptaller dahil)
+- [ ] Gecikme oranları `analiz-g2.md` ile aynı
+- [ ] Teslim süresi ortalaması `analiz-g2.md` ile aynı (yuvarlama farkı tolere edilir)
+- [ ] 3 PNG üretildi; başlık, eksen etiketi ve birim var
+- [ ] Hiçbir PNG'de "ÖRNEK VERİ" yazmıyor
 
-### 1. Zaman Serisi Grafiği (`visuals/zaman-serisi.png`)
-* **Grafik Türü:** Çizgi grafik (Line chart) ile vurgulanmış veri noktaları (markers).
-* **Başlık:** Aylık Sevkiyat Sayısı (Ocak–Mart 2026)
-* **X Ekseni:** Ay (Ocak 2026, Şubat 2026, Mart 2026)
-* **Y Ekseni:** Sevkiyat Adedi (adet)
-* **Veri Değerleri:**
-  * Ocak 2026: 99
-  * Şubat 2026: 98
-  * Mart 2026: 103
-* **Özellikler:** Her noktanın üzerinde tam sayı veri etiketi yer almalı, trend çizgisi kurumsal mavi renkte ve kılavuz çizgileriyle (grid) desteklenmelidir.
+## Örnek giriş ve çıkış
+**Giriş (prompt):** "fe-gorsel skill'ini kullanarak Görev 2 grafiklerini gerçek veriyle yeniden üret."
 
-### 2. Taşıma Modu Kırılım Grafiği (`visuals/kirilim.png`)
-* **Grafik Türü:** Dikey Sütun Grafiği (Bar chart).
-* **Başlık:** Taşıma Moduna Göre Ortalama Sevkiyat Ücreti
-* **X Ekseni:** Taşıma Modu (Kara, Demiryolu, Deniz, Hava)
-* **Y Ekseni:** Ortalama Ücret (TL)
-* **Veri Değerleri:**
-  * Kara: 4.476,02 TL
-  * Demiryolu: 2.850,24 TL
-  * Deniz: 1.823,49 TL
-  * Hava: 14.028,00 TL
-* **Özellikler:** Sütunların üzerinde Türk Lirası para birimi simgesi veya "TL" formatında biçimlendirilmiş veri etiketleri bulunmalı, eksen etiketlerinde birim açıkça belirtilmelidir.
+**Çıkış (özet):**
+```
+3 grafik yazıldı (gerçek veri, 900 satır): visuals/
+Grafik 1: 2026-W01 4 gün (60 sevkiyat), W02–W09 7 gün (105'er sevkiyat)
+Grafik 2: kara %17,5 · demiryolu %17,3 · hava %12,6 · deniz %10,7
+Grafik 3: 851 başarılı sevkiyat, ortalama 20,9 saat
+```
+Ardından `analiz-g2.md` ile karşılaştırma sonucu yazılır ve commit önerilir.
 
-## Görsel Tasarım İlkeleri
+## Reddetme durumları
+- **Gerçek kişisel veri talebi** (ad-soyad, telefon, adres, TC kimlik no, gerçek müşteri kaydı): Grafik üretmez, veri eklemez. Nedenini kısaca söyler, sentetik bir karşılık önerir (ör. `musteri_id` gibi sentetik kimlik).
+- **Sayı uydurma veya veriyi değiştirme** (ör. "ciroyu biraz yükselt", "eksik haftayı doldur"): Reddeder. Eksik hafta gösterilir.
+- **"ÖRNEK VERİ" damgasını gerçek veriymiş gibi gizleme** talebi: Reddeder.
+- **Şemayı tek taraflı değiştirme** (kolon ekleme, aralık değiştirme): DQ'ya sorulmadan yapılmaz. Önce `docs/veri-sozlugu.md` güncellenir.
 
-* **Çözünürlük:** 300 DPI, yüksek kaliteli PNG formatı.
-* **Renk Paleti:**
-  * Ana Renk (Primary): Lacivert / Koyu Mavi (`#1F4E79`)
-  * Vurgu Renkleri: Mavi (`#2E75B6`), Çelik Mavisi (`#5B9BD5`), Turkuaz (`#41B6E6`)
-  * Arka Plan: Beyaz (`#FFFFFF`), hafif gri ızgara çizgileri (`#E0E0E0`, alpha=0.6).
-* **Tipografi:** Sans-serif (Segoe UI, Arial, DejaVu Sans), başlıklar 14-16pt kalın (bold), eksen etiketleri 11-12pt, veri etiketleri 10pt.
-* **Marjinler:** Başlık ve etiketlerin kırpılmaması için `bbox_inches='tight'` ile kaydedilir.
+## Üretim kaydı
+Bu skill ve `src/gorsel_g2.py`, Claude (Anthropic) yardımıyla hazırlanmıştır. Bu skill ile yapılan her teslimin PR açıklamasına şu satır eklenir:
+`Üretim: skill'i ile, Claude — prompt özeti: <kısa özet>`
 
-## Kullanılan Dosyalar ve Bağımlılıklar
+## Kullanılan dosyalar
+- **Okur:** `data/lojistik_sevkiyat_g2.csv`, `docs/veri-sozlugu.md`, `docs/analiz-g2.md`
+- **Çalıştırır:** `src/gorsel_g2.py`
+- **Yazar:** `visuals/zaman_serisi_haftalik.png`, `visuals/mod_gecikme_kirilimi.png`, `visuals/teslimat_suresi_dagilimi.png`
 
-* **Okur:**
-  * `data/lojistik-sevkiyat.csv` (Sentetik lojistik sevkiyat veri seti)
-  * `docs/analiz-g1.md` (DQ tarafından doğrulanan metrik tanımları ve değerleri)
-* **Çalıştırır:**
-  * `src/grafik_uret.py` (FE grafik üretim ve görselleştirme betiği)
-* **Yazar:**
-  * `visuals/zaman-serisi.png` (Aylık sevkiyat trend çizgisi)
-  * `visuals/kirilim.png` (Taşıma moduna göre ortalama ücret kırılımı)
-  * `visuals/taslak-grafikler.png` (Ön taslak yerleşim çizimi)
-* **Bağımlılıklar:**
-  * Python 3
-  * `pandas`, `matplotlib`, `seaborn`
-  * Kurulum:
-    ```bash
-    pip install pandas matplotlib seaborn
-    ```
+## Bağımlılıklar
+`pip install matplotlib pandas numpy`
 
-## Çalıştırma Talimatı
-
-1. Gerekli bağımlılıkların kurulu olduğunu doğrula:
-   ```bash
-   pip install pandas matplotlib seaborn
-   ```
-2. Depo kökünde `src/grafik_uret.py` dosyasının mevcut olduğunu kontrol et ve çalıştır:
-   ```bash
-   python src/grafik_uret.py
-   ```
-
-## Bitiş ve Teslim Koşulları
-
-1. `skills/fe-gorsel/SKILL.md` dosyası oluşturulmuş ve commit'lenmiş olmalıdır.
-2. `visuals/zaman-serisi.png` ve `visuals/kirilim.png` üretilmiş olmalıdır.
-3. Taslak ekran görüntüsü Issue #16'ya yüklenmiş olmalıdır.
-4. Issue #16'ya aşağıdaki şablona uygun teslim yorumu bırakılmalıdır:
-   > Grafikler hazır — commit `<hash>`. Dosyalar: visuals/zaman-serisi.png, visuals/kirilim.png. Veri: data/lojistik-sevkiyat.csv. Metrikler: docs/analiz-g1.md.
+## Nasıl çalıştırılır
+- Ajana: "fe-gorsel skill'ini kullanarak Görev 2 grafiklerini gerçek veriyle yeniden üret."
+- Elle: `python src/gorsel_g2.py`
