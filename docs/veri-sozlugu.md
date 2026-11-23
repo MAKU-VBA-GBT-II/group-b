@@ -1,103 +1,108 @@
-# Veri Sözlüğü — Lojistik Sevkiyat Simülasyonu (Görev 2)
+# Veri Sözlüğü — Çok Ajanlı Şirket Programı (Görev 3)
 
-**Sürüm:** v2.0  
-**Rol ve Sorumlu:** DQ — Ece Naz Aktürk (@ece-naz)  
-**Hedef Kitle:** BE (Aykut Çakıcı), FE (Sema Coşkun), Junior (İpek), PM (Sude Çukurtaş)  
-**Tarih:** 2026-10-31  
-**İlgili Issue:** [#46](https://github.com/MAKU-VBA-GBT-II/group-b/issues/46)
+**Sürüm:** v3.0 (Görev 3 — Çok Ajanlı Lojistik Karar Destek Sistemi Uyumlu)  
+**Rol ve Sorumlu:** DQ / Ajan 3 — Ece Naz Aktürk (@ece-naz) & BE / Ajan 2 — Aykut Çakıcı (@Aykuutt)  
+**Şirket:** Grup B — Logistics Intelligence Network (LIN)  
+**Tarih:** 2026-11-24  
+**İlgili Duyuru:** [Duyuru 10](https://github.com/MAKU-VBA-GBT-II/ders/blob/main/Duyuru-10_2026-11-20.md)  
 
 ---
 
 ## 1. Genel Bakış ve Amaç
-Bu veri sözlüğü, Görev 2 mini ürünü olan **Parametreli Lojistik Sevkiyat Simülasyonu** veri hattının, analiz planının ve görselleştirme gereksinimlerinin temel standardını belirler.
+Bu veri sözlüğü, Görev 3 kapsamında geliştirilen **Çok Ajanlı Şirket Programı** için veri modellerini, parametrik simülasyon kurallarını ve dış web kaynakları (MGM, KGM, Akaryakıt) ile şirket içi sentetik sevkiyat verilerinin eşleştirme standartlarını belirler.
 
-Tüm veri sentetik olup sabit tohumla tekrarlanabilir niteliktedir. **Gerçek kişi, müşteri veya firma verisi kesinlikle depoya dahil edilmez.**
+Sistemde:
+- **İç Veri (Sentetik):** Şirketin aktif sevkiyat operasyonları, rotalar, ağırlıklar, taşıma modları ve baz maliyetler.
+- **Dış Veri (Gerçek & Kamusal):** Meteoroloji Genel Müdürlüğü (MGM) meteorolojik uyarı haritası, Karayolları Genel Müdürlüğü (KGM) yol durumu bülteni ve serbest akaryakıt pompa fiyatları.
+- **Kişisel Veri:** Sistemde gerçek kişi, şoför, müşteri kimliği veya kişisel profil verisi kesinlikle barındırılmaz ve toplanmaz.
 
 ---
 
 ## 2. Veri Kümesi Özellikleri
-- **Hedef Dosya:** `data/lojistik_sevkiyat_g2.csv`
-- **Hedef Satır Sayısı:** 900 satır (60 gün × ortalama 15 sevkiyat/gün)
+- **Örnek Veri Dosyası:** `data/lojistik_sevkiyat_g3_ornek.csv`
+- **Hedef Satır Sayısı:** 140 satır (7 gün × 20 sevkiyat/gün)
 - **Karakter Kodlaması:** UTF-8
 - **Ayraç:** Virgül (`,`)
-- **Tohum (Seed):** 42 (varsayılan)
+- **Tohum (Seed):** 42 (Tekrarlanabilir)
 
 ---
 
-## 3. Simülasyon Parametreleri (BE İçin)
-Backend simülasyon betiği (`src/simulasyon.py`), komut satırı argümanları (`argparse`) veya yapılandırma değişkenleri ile en az aşağıdaki ayarlanabilir parametreleri desteklemelidir:
+## 3. Dinamik Simülasyon Parametreleri (Duyuru 10 Kural 3)
+`src/simulasyon.py` betiği, web kaynaklarından gelen uyarılara göre dışarıdan dinamik liste ve aralık parametreleri alabilir:
 
-| Parametre Adı | Tip | Varsayılan | Açıklama |
+| Parametre | Tip | Varsayılan | Açıklama |
 |---|---|---|---|
-| `--tohum` (`seed`) | Tam sayı | `42` | Simülasyonun tekrarlanabilirliğini sağlayan rastgelelik tohumu. |
-| `--gun-sayisi` (`days`) | Tam sayı | `60` | Simüle edilecek toplam gün sayısı (Başlangıç: `2026-01-01`). |
-| `--gunluk-sevkiyat` (`daily_shipments`) | Tam sayı | `15` | Gün başına ortalama üretilecek sevkiyat sayısı. |
-| `--gecikme-olasiligi` (`delay_prob`) | Ondalık | `0.15` | Bir sevkiyatın operasyonel gecikmeye uğrama olasılığı (%15). |
-| `--iptal-olasiligi` (`cancel_prob`) | Ondalık | `0.05` | Bir sevkiyatın iptal edilme olasılığı (%5). |
+| `--tohum` (`seed`) | Tam sayı | `42` | Rastgelelik tohumu |
+| `--gun-sayisi` (`days`) | Tam sayı | `7` | Simüle edilecek gün sayısı (analiz haftası) |
+| `--gunluk-sevkiyat` | Tam sayı | `20` | Gün başına üretilecek sevkiyat sayısı |
+| `--baslangic-tarihi` | Metin | `2026-11-20` | `YYYY-MM-DD` ISO başlangıç tarihi |
+| `--sehirler` | Metin | `None` (Tüm 8 merkez) | Web uyarısı alan illere odaklanmak için virgülle ayrılmış şehir listesi (örn: `"Istanbul,Ankara,Trabzon"`) |
+| `--fiyat-carpani` | Ondalık | `1.0` | Dış piyasadan çekilen akaryakıt fiyatına göre dinamik navlun çarpanı |
+| `--gecikme-olasiligi`| Ondalık | `0.15` | Baz operasyonel gecikme olasılığı |
+| `--iptal-olasiligi`  | Ondalık | `0.05` | Baz iptal olasılığı |
 
 ---
 
-## 4. Alan Tanımları ve Kuralları
+## 4. Alan Tanımları ve Veri Şeması
 
-| Alan Adı | Veri Tipi | Zorunlu / Boşluk | Geçerli Aralık / Kural | Örnek Değer |
-|---|---|---|---|---|
-| `sevkiyat_id` | Metin (String) | Zorunlu | Benzersiz format: `SVK-G2-0001` ... `SVK-G2-XXXX` | `SVK-G2-0142` |
-| `tarih` | Tarih (String) | Zorunlu | `YYYY-MM-DD` ISO formatı; `2026-01-01` ile başlayan `gun_sayisi` aralığı | `2026-01-18` |
-| `cikis_sehri` | Metin (String) | Zorunlu | 8 Lojistik Merkez: `Istanbul`, `Ankara`, `Izmir`, `Bursa`, `Antalya`, `Adana`, `Trabzon`, `Gaziantep` | `Istanbul` |
-| `varis_sehri` | Metin (String) | Zorunlu | Çıkış şehirleri listesiyle aynı, ancak `varis_sehri != cikis_sehri` | `Izmir` |
-| `tasima_modu` | Metin (String) | Zorunlu | 4 Mod: `kara`, `deniz`, `hava`, `demiryolu` | `kara` |
-| `agirlik_kg` | Tam sayı (Integer) | Zorunlu | `50` ile `10000` arası pozitif tam sayı | `1850` |
-| `mesafe_km` | Tam sayı (Integer) | Zorunlu | Şehirler arası karayolu mesafesi baz alınır (`100` - `1800` km). Hava modu için düz hat katsayısı (%80-%85) uygulanabilir. | `480` |
-| `ucret_tl` | Ondalık (Float) | Zorunlu | Pozitif ondalık sayı, tam 2 basamak. Formül: `(agirlik_kg * 0.50) + (mesafe_km * mod_çarpanı * 1.6)`. İptal edilenlerde de tahakkuk eden navlun yansıtılır. | `3450.50` |
-| `teslim_suresi_saat` | Ondalık (Float) | Koşullu | 1 ondalık basamak. Ortalama hız ve bekleme süresine dayalıdır. **Kural:** `durum == 'iptal'` ise bu alan kesinlikle **BOŞ** (None / NaN / boş string) olmalıdır! | `18.5` |
-| `durum` | Metin (String) | Zorunlu | 3 Durum: `zamaninda`, `gecikmeli`, `iptal` | `zamaninda` |
-
----
-
-## 5. Analiz Planı ve 5 Temel Metrik (DQ & FE İçin)
-
-Mini ürün analiz raporunda (`docs/analiz-g2.md`) ve görselleştirmelerde (`visuals/`) kullanılacak zorunlu 5 metrik şunlardır:
-
-### Metrik 1: Toplam Sevkiyat Hacmi ve Toplam Ciro (Toplam Metrik)
-* **Adı:** Toplam Sevkiyat Adedi ve Toplam Navlun Geliri (`toplam_ciro_tl`)
-* **Ölçtüğü:** Simülasyon dönemindeki tüm sevkiyat hacmini ve parasal büyüklüğü.
-* **Formül:** `Toplam Adet = COUNT(sevkiyat_id)`, `Toplam Ciro = SUM(ucret_tl)` (İptaller dahil operasyonel hacim).
-
-### Metrik 2: Ortalama Teslimat Süresi ve Ortalama Ağırlık (Ortalama Metrik)
-* **Adı:** Net Ortalama Teslimat Süresi (`ortalama_teslim_suresi_saat`)
-* **Ölçtüğü:** Başarıyla sonuçlanan (zamanında + gecikmeli) sevkiyatların ortalama teslimat hızını.
-* **Formül:** `AVG(teslim_suresi_saat)` WHERE `durum != 'iptal'`.
-* **Kritik Kural:** İptal edilen kayıtlar süre ortalamasına kesinlikle dahil edilmez.
-
-### Metrik 3: Haftalık Sevkiyat Hacmi ve Gelir Trendi (Zaman Serisi Kırılımı)
-* **Adı:** Hafta Bazında Sevkiyat Sayısı ve Ciro
-* **Ölçtüğü:** Dönem içindeki operasyonel yoğunluğun haftalık dağılımını.
-* **Formül:** `GROUP BY Hafta(tarih)` -> `COUNT(sevkiyat_id)`, `SUM(ucret_tl)`.
-* **FE Kullanımı:** 1. Grafik (Zaman Serisi trend grafiği).
-
-### Metrik 4: Taşıma Moduna Göre Sevkiyat Sayısı ve Gecikme Oranı (Kategorik Kırılım)
-* **Adı:** Mod Bazlı Gecikme Performansı
-* **Ölçtüğü:** Farklı taşıma modlarının (kara, deniz, hava, demiryolu) güvenilirlik ve gecikme riskini.
-* **Formül:** Mod bazında `Gecikme Oranı (%) = (Geciken Sevkiyat Sayısı / (Zamanında + Geciken Sevkiyat Sayısı)) * 100`. (Paydada iptaller yer almaz).
-* **FE Kullanımı:** 2. Grafik (Kategorik kırılım çubuk grafiği).
-
-### Metrik 5: En Yoğun Top-5 Sevkiyat Rotası (Top-N Metrik)
-* **Adı:** En Yüksek Hacimli İlk 5 Rota
-* **Ölçtüğü:** En çok sevkiyat yapılan şehir çiftlerini (`cikis_sehri` -> `varis_sehri`).
-* **Formül:** `GROUP BY cikis_sehri, varis_sehri` -> `ORDER BY COUNT(*) DESC LIMIT 5`.
+| Alan Adı | Veri Tipi | Zorunlu | Format / Kural | Örnek |
+|---|---|:---:|---|---|
+| `sevkiyat_id` | String | Evet | Benzersiz format: `SVK-G3-XXXX` | `SVK-G3-0012` |
+| `tarih` | String (ISO) | Evet | `YYYY-MM-DD` ISO tarih formatı | `2026-11-20` |
+| `cikis_sehri` | String | Evet | Web kaynaklarıyla eşleşen 8 merkez il | `Antalya` |
+| `varis_sehri` | String | Evet | 8 merkez il (`varis_sehri != cikis_sehri`) | `Istanbul` |
+| `tasima_modu` | String | Evet | `kara`, `deniz`, `hava`, `demiryolu` | `kara` |
+| `agirlik_kg` | Integer | Evet | `50` - `10000` kg arası tam sayı | `4538` |
+| `mesafe_km` | Integer | Evet | Karayolu ve mod katsayılı mesafe (`100` - `1800` km) | `700` |
+| `ucret_tl` | Float | Evet | `(agirlik * 0.50) + (mesafe * mod_çarpanı * 1.6) * fiyat_carpani` (2 ondalık) | `3389.00` |
+| `teslim_suresi_saat` | Float | Koşullu | 1 ondalık basamak. **Kural:** `durum == 'iptal'` ise **BOŞ** kalmalıdır. | `24.0` |
+| `durum` | String | Evet | `zamaninda`, `gecikmeli`, `iptal` | `gecikmeli` |
 
 ---
 
-## 6. FE (Görselleştirme) İçin 3 Grafik Seti Gereksinimleri
-Issue #48 gereğince FE rolünün üreteceği 3 grafik doğrudan bu sözlükteki verileri kullanır:
-1. **Zaman Serisi Grafiği:** Haftalık sevkiyat hacmi ve toplam ciro trendi (`visuals/zaman_serisi_haftalik.png`).
-2. **Kategorik Kırılım Grafiği:** Taşıma modlarına göre toplam sevkiyat adedi ve gecikme oranı (`visuals/mod_gecikme_kirilimi.png`).
-3. **Dağılım Grafiği:** Başarılı sevkiyatların teslimat süresi dağılımı histogramı (`visuals/teslimat_suresi_dagilimi.png`).
+## 5. Web Kaynakları Eşleme Şeması (Ajanlar Arası Veri Bağı)
+
+| Dış Web Kaynağı | Web Veri Alanı | İç Veri Eşleşmesi (`data/`) | Ajan 2 İşleme Kuralı |
+|---|---|---|---|
+| **MGM Uyarı Haritası** | Uyarı Alan İl (`il_adi`), Uyarı Türü (`tur: kar/firtina`), Uyarı Seviyesi (`seviye: sari/turuncu/kirmizi`) | `cikis_sehri` ve `varis_sehri` | Rota güzergahında sarı uyarı varsa risk puanı +25, turuncu uyarıda +50 puan eklenir. |
+| **KGM Yol Bülteni** | Güzergah (`guzergah`), Durum (`kapali/tek_serit`), Neden (`kar/heyelan`) | `cikis_sehri` - `varis_sehri` mesafesi | Kapalı yolda tahmini gecikme süresine +12 saat eklenir, teslim süresi güncellenir. |
+| **Akaryakıt Fiyatı** | İl bazlı motorin pompa fiyatı (`fiyat_tl`) | `ucret_tl` | Simülasyonun `--fiyat-carpani` katsayısını belirler. |
+
+---
+
+## 6. Ajanlar Arası Mesajlaşma Formatı (JSON Standardı)
+
+Ajan 1'den Ajan 2'ye ve Ajan 2'den Ajan 3'e aktarılan mesaj paketlerinde bulunması zorunlu alanlar:
+```json
+{
+  "mesaj_id": "MSG-G3-20261124-001",
+  "uretim_zamani": "2026-11-24T10:00:00Z",
+  "kaynak_ajan": "Ajan_1_WebToplayici",
+  "hedef_ajan": "Ajan_2_RiskAnaliz",
+  "veri": {
+    "mgm_uyarilari": [
+      {
+        "il": "Trabzon",
+        "seviye": "turuncu",
+        "tur": "yogun_kar",
+        "kaynak_url": "https://www.mgm.gov.tr/tahmin/meteorolojik-uyari-ve-degerlendirmeler.aspx"
+      }
+    ],
+    "kgm_yol_durumu": [
+      {
+        "guzergah": "Trabzon-Gaziantep",
+        "durum": "tek_serit",
+        "kaynak_url": "https://www.kgm.gov.tr"
+      }
+    ]
+  }
+}
+```
 
 ---
 
 ## 7. Kabul ve Doğrulama Kriterleri
-- [ ] Üretim betiği veriyi yazmadan önce şemayı doğrulamalıdır (`dogrula()` fonksiyonu).
-- [ ] `sevkiyat_id` değerleri benzersiz olmalıdır.
-- [ ] İptal durumundaki satırlarda `teslim_suresi_saat` boş (NaN) bırakılmalıdır.
-- [ ] Sabit tohum (seed=42) ile çalıştırıldığında her seferinde birebir aynı veri kümesi elde edilmelidir.
+- [ ] `src/simulasyon.py` betiği `--sehirler` argümanıyla sadece seçilen iller arasında sevkiyat üretebilmelidir.
+- [ ] Dış web kaynaklarındaki il isimleri ile simülasyondaki `cikis_sehri` ve `varis_sehri` birebir uyumlu olmalıdır.
+- [ ] `durum == 'iptal'` kayıtlarında `teslim_suresi_saat` alanı kesinlikle boş bırakılmalıdır.
+- [ ] Üretilen tüm sayılar kaynak URL ve zaman damgasıyla taşınmalıdır.
