@@ -1,0 +1,98 @@
+{
+  "mesaj_id": "MSG-G3-20261126-A3-001",
+  "uretim_zamani": "2026-11-26T08:25:10Z",
+  "kaynak_ajan": "Ajan_3_Denetim",
+  "hedef_ajan": "Cekirdek_Ve_Arayuz",
+  "referans_mesaj_id": "MSG-G3-20261125-A2-001",
+  "denetim_ozeti": {
+    "genel_karar": "ONAYLANDI",
+    "toplam_incelenen_sevkiyat": 140,
+    "aktif_sevkiyat": 134,
+    "iptal_sevkiyat": 6,
+    "ortalama_risk_puani": 13.13,
+    "kritik_esik_puani": 65,
+    "onaylanan_yuksek_riskli_adet": 1
+  },
+  "denetlenen_yuksek_riskli_sevkiyatlar": [
+    {
+      "sevkiyat_id": "SVK-G3-0093",
+      "tarih": "2026-11-24",
+      "rota": "Trabzon -> Adana",
+      "tasima_modu": "kara",
+      "durum": "gecikmeli",
+      "baz_ucret_tl": "5253.50",
+      "yakit_etkili_ucret_tl": "5345.96",
+      "risk_puani": 70,
+      "risk_seviyesi": "yuksek",
+      "ek_gecikme_saat": 16.0,
+      "tahmini_teslim_suresi_saat": "57.1",
+      "risk_nedenleri": [
+        "operasyonel_gecikme",
+        "kgm_kapali_Ilgar Geçidi",
+        "kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu)"
+      ],
+      "dayanak_kaynaklar": [
+        {
+          "kaynak": "AKARYAKIT",
+          "detay": "Trabzon motorin 86.5 TL/LT",
+          "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+          "erisim_tarihi": "2026-11-26"
+        },
+        {
+          "kaynak": "KGM",
+          "detay": "Ilgar Geçidi (kapali)",
+          "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+          "erisim_tarihi": "2026-11-26"
+        },
+        {
+          "kaynak": "KGM",
+          "detay": "Pozantı Kavşağı (Ankara-Niğde Otoyolu) (tek_serit)",
+          "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+          "erisim_tarihi": "2026-11-26"
+        }
+      ]
+    }
+  ],
+  "musteri_bildirim_mesajlari": [
+    {
+      "sevkiyat_id": "SVK-G3-0093",
+      "rota": "Trabzon -> Adana",
+      "planlanan_tarih": "2026-11-24",
+      "ek_gecikme_saat": 16.0,
+      "tahmini_teslim_suresi_saat": "57.1",
+      "musteri_mesaji_metni": "Sayın Müşterimiz,\n\n**SVK-G3-0093** takip numaralı **Trabzon -> Adana** güzergahındaki sevkiyatınız, planlanan operasyon takvimine göre tahmini **+16.0 saat** operasyonel gecikme riski altındadır (Tahmini toplam teslimat süresi: ~57.1 saat).\n\n**Gecikme Gerekçesi:**\nGüzergah üzerindeki resmi karayolları bültenlerinde bildirilen çalışma ve hava şartları:\n- **AKARYAKIT**: Trabzon motorin 86.5 TL/LT ([Resmi Duyuru Bağlantısı](https://www.petrolofisi.com.tr/akaryakit-fiyatlari))\n- **KGM**: Ilgar Geçidi (kapali) ([Resmi Duyuru Bağlantısı](https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx))\n- **KGM**: Pozantı Kavşağı (Ankara-Niğde Otoyolu) (tek_serit) ([Resmi Duyuru Bağlantısı](https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx))\n\nLogistics Intelligence Network (LIN) operasyon merkezimiz güzergah güvenliğini anlık izlemekte olup akaryakıt ve rota optimizasyonuyla teslimatınızı en güvenli sürede tamamlamak için çalışmaktadır.\n\nDetaylı bilgi ve canlı takip için müşteri destek hattımızla iletişime geçebilirsiniz.\nSaygılarımızla,\n**Logistics Intelligence Network (LIN) — Operasyonel İletişim Merkezi**",
+      "dogrulanan_kaynaklar": [
+        {
+          "kaynak": "AKARYAKIT",
+          "detay": "Trabzon motorin 86.5 TL/LT",
+          "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+          "erisim_tarihi": "2026-11-26"
+        },
+        {
+          "kaynak": "KGM",
+          "detay": "Ilgar Geçidi (kapali)",
+          "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+          "erisim_tarihi": "2026-11-26"
+        },
+        {
+          "kaynak": "KGM",
+          "detay": "Pozantı Kavşağı (Ankara-Niğde Otoyolu) (tek_serit)",
+          "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+          "erisim_tarihi": "2026-11-26"
+        }
+      ]
+    }
+  ],
+  "dayanak_kaynaklar": [
+    {
+      "kaynak": "KGM",
+      "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+      "erisim_tarihi": "2026-11-26"
+    },
+    {
+      "kaynak": "AKARYAKIT",
+      "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+      "erisim_tarihi": "2026-11-26"
+    }
+  ]
+}
