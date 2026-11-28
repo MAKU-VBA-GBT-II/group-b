@@ -24,8 +24,13 @@ Ajan 2'den gelen risk analiz sonuç paketini (`data/ajan2_mesaj.json`) ve şirke
 python src/ajan3_denetim.py --ajan2-json data/ajan2_mesaj.json --sevkiyat-csv data/lojistik_sevkiyat_g3_ornek.csv
 ```
 
-## Geri Gönderim (Reddetme) Durumları
-Aşağıdaki durumlarda `GeriGonderimHatasi` fırlatılır ve iş Ajan 2'ye iade edilir:
-1. `toplam_sevkiyat != aktif_sevkiyat + iptal_sevkiyat` sayısal uyumsuzluğu.
-2. 0–100 aralığı dışında kalan risk puanları.
-3. Eksik `kaynak_url` veya şirket veri setinde bulunmayan `sevkiyat_id`.
+## Geri Gönderim (Reddetme) Protokolü (Duyuru 11 & docs/mesaj-bicimi.md §4)
+Girdide kural ihlali tespit edildiğinde standart red zarfı (`durum: red`, `hata_kodu`, `sorunlu_alanlar`) üretilir ve iş gerekçesiyle Ajan 2'ye iade edilir:
+1. `toplam_sevkiyat != aktif_sevkiyat + iptal_sevkiyat` sayısal uyumsuzluğu (`ERR_NUMERICAL_INCONSISTENCY`).
+2. 0–100 aralığı dışında kalan risk puanları veya bayat tarihli paket (`ERR_STALE_DATA`).
+3. Eksik `kaynak_url` veya şirket veri setinde bulunmayan `sevkiyat_id` (`ERR_SCHEMA_MISSING`).
+
+Örnek red zarfı kanıtı: `data/ajan3_red_ornek.json`.
+```bash
+python src/ajan3_denetim.py --red-ornek
+```

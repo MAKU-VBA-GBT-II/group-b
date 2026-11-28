@@ -19,6 +19,48 @@ class GeriGonderimHatasi(ValueError):
     """Ajan 2 çıktısı şema, tazelik, sayısal tutarlılık veya kaynak kuralını ihlal ettiğinde fırlatılır."""
 
 
+def red_zarfi_uret(
+    ajan2_paketi,
+    gerekce,
+    sorunlu_alanlar,
+    hata_kodu="ERR_GENERIC",
+    cikti_yolu=None,
+    zaman_damgasi=None,
+):
+    """
+    Duyuru 11 ve docs/mesaj-bicimi.md §4 Standardı:
+    Ajan 2 girdisinde kural ihlali tespit edildiğinde standart red zarfı üretir.
+    """
+    zaman_str = (
+        zaman_damgasi
+        if zaman_damgasi
+        else datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    )
+    gun_str = datetime.now(timezone.utc).strftime("%Y%m%d")
+    mesaj_id = f"MSG-G3-{gun_str}-RED-001"
+
+    red_paketi = {
+        "mesaj_id": mesaj_id,
+        "uretim_zamani": zaman_str,
+        "kaynak_ajan": "Ajan_3_Denetim",
+        "hedef_ajan": "Ajan_2_RiskAnaliz",
+        "referans_mesaj_id": (
+            ajan2_paketi.get("mesaj_id") if isinstance(ajan2_paketi, dict) else "BILINMIYOR"
+        ),
+        "durum": "red",
+        "gerekce": gerekce,
+        "sorunlu_alanlar": sorunlu_alanlar if isinstance(sorunlu_alanlar, list) else [str(sorunlu_alanlar)],
+        "hata_kodu": hata_kodu,
+    }
+
+    if cikti_yolu:
+        os.makedirs(os.path.dirname(os.path.abspath(cikti_yolu)), exist_ok=True)
+        with open(cikti_yolu, "w", encoding="utf-8") as f:
+            json.dump(red_paketi, f, ensure_ascii=False, indent=2)
+
+    return red_paketi
+
+
 def metin_normallestir(metin):
     """Türkçe karakterleri ASCII karşılıklarına dönüştürür ve küçük harfe çevirir."""
     if not metin:
@@ -368,6 +410,44 @@ def denetim_raporu_markdown_olustur(mesaj_paketi):
     return "\n".join(satirlar)
 
 
+def ornek_red_uret(cikti_yolu=None, ajan2_json_yolu=None):
+    """
+    Duyuru 11 Şartı:
+    Sayısal tutarsızlık veya bozuk girdi senaryosunda üretilen 1 örnek red zarfı kanıtı oluşturur.
+    """
+    if not cikti_yolu:
+        cikti_yolu = os.path.join(KOK_DIZIN, "data", "ajan3_red_ornek.json")
+    if not ajan2_json_yolu:
+        if os.path.exists(os.path.join(KOK_DIZIN, "data", "ornek-ajan2.json")):
+            ajan2_json_yolu = os.path.join(KOK_DIZIN, "data", "ornek-ajan2.json")
+        else:
+            ajan2_json_yolu = os.path.join(KOK_DIZIN, "data", "ajan2_mesaj.json")
+
+    ref_id = "MSG-G3-20261128-A2-001"
+    if os.path.exists(ajan2_json_yolu):
+        try:
+            with open(ajan2_json_yolu, "r", encoding="utf-8") as f:
+                p = json.load(f)
+                ref_id = p.get("mesaj_id", ref_id)
+        except Exception:
+            pass
+
+    red_paketi = red_zarfi_uret(
+        ajan2_paketi={"mesaj_id": ref_id},
+        gerekce="Ajan 2 özet verilerinde sayısal tutarsızlık tespit edildi: toplam_sevkiyat (150) != aktif_sevkiyat (134) + iptal_sevkiyat (6).",
+        sorunlu_alanlar=[
+            "ozet.toplam_sevkiyat",
+            "ozet.aktif_sevkiyat",
+            "ozet.iptal_sevkiyat",
+        ],
+        hata_kodu="ERR_NUMERICAL_INCONSISTENCY",
+        cikti_yolu=cikti_yolu,
+        zaman_damgasi="2026-11-28T10:00:00Z",
+    )
+    print(f"[OK] Ajan 3 Ornek Red Zarfi Uretildi: {cikti_yolu}")
+    return red_paketi
+
+
 def calistir(
     ajan2_json_yolu=None,
     sevkiyat_csv_yolu=None,
@@ -377,7 +457,10 @@ def calistir(
 ):
     """Ajan 3 uçtan uca alma, denetleme ve teslim akışını çalıştırır."""
     if not ajan2_json_yolu:
-        ajan2_json_yolu = os.path.join(KOK_DIZIN, "data", "ajan2_mesaj.json")
+        if os.path.exists(os.path.join(KOK_DIZIN, "data", "ornek-ajan2.json")):
+            ajan2_json_yolu = os.path.join(KOK_DIZIN, "data", "ornek-ajan2.json")
+        else:
+            ajan2_json_yolu = os.path.join(KOK_DIZIN, "data", "ajan2_mesaj.json")
     if not sevkiyat_csv_yolu:
         sevkiyat_csv_yolu = os.path.join(KOK_DIZIN, "data", "lojistik_sevkiyat_g3_ornek.csv")
     if not cikti_json_yolu:
@@ -436,15 +519,19 @@ def main():
     parser.add_argument("--cikti-json", type=str, default=None, help="Ajan 3 çıktı JSON yolu")
     parser.add_argument("--cikti-md", type=str, default=None, help="Ajan 3 denetim raporu MD yolu")
     parser.add_argument("--esik", type=int, default=65, help="Kritik risk puanı eşiği (varsayılan: 65)")
+    parser.add_argument("--red-ornek", action="store_true", help="Duyuru 11 için 1 örnek red zarfı kanıtı üretir")
 
     args = parser.parse_args()
-    calistir(
-        ajan2_json_yolu=args.ajan2_json,
-        sevkiyat_csv_yolu=args.sevkiyat_csv,
-        cikti_json_yolu=args.cikti_json,
-        cikti_md_yolu=args.cikti_md,
-        kritik_esik=args.esik,
-    )
+    if args.red_ornek:
+        ornek_red_uret()
+    else:
+        calistir(
+            ajan2_json_yolu=args.ajan2_json,
+            sevkiyat_csv_yolu=args.sevkiyat_csv,
+            cikti_json_yolu=args.cikti_json,
+            cikti_md_yolu=args.cikti_md,
+            kritik_esik=args.esik,
+        )
 
 
 if __name__ == "__main__":

@@ -1,9 +1,9 @@
 {
-  "mesaj_id": "MSG-G3-20261126-A3-001",
-  "uretim_zamani": "2026-11-26T08:25:10Z",
+  "mesaj_id": "MSG-G3-20261128-A3-001",
+  "uretim_zamani": "2026-11-28T13:31:36Z",
   "kaynak_ajan": "Ajan_3_Denetim",
   "hedef_ajan": "Cekirdek_Ve_Arayuz",
-  "referans_mesaj_id": "MSG-G3-20261125-A2-001",
+  "referans_mesaj_id": "MSG-G3-20261128-A2-001",
   "denetim_ozeti": {
     "genel_karar": "ONAYLANDI",
     "toplam_incelenen_sevkiyat": 140,

@@ -1,8 +1,8 @@
 # Ajan 3 Denetim, Kalite Kontrol ve Müşteri Teslim Raporu
 
-**Rapor Tarihi / Üretim Zamanı:** `2026-11-26T08:25:10Z`  
-**Mesaj ID:** `MSG-G3-20261126-A3-001`  
-**Referans Mesaj (Ajan 2):** `MSG-G3-20261125-A2-001`  
+**Rapor Tarihi / Üretim Zamanı:** `2026-11-28T13:31:36Z`  
+**Mesaj ID:** `MSG-G3-20261128-A3-001`  
+**Referans Mesaj (Ajan 2):** `MSG-G3-20261128-A2-001`  
 **Sorumlu:** DQ / Ajan 3 — Ece Naz Aktürk (`@ece-naz`)  
 **Şirket:** Grup B — Logistics Intelligence Network (LIN)  
 

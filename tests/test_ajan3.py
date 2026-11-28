@@ -146,6 +146,20 @@ class TestAjan3Denetim(unittest.TestCase):
             self.assertEqual(paket["hedef_ajan"], "Cekirdek_Ve_Arayuz")
             self.assertEqual(len(paket["musteri_bildirim_mesajlari"]), 1)
 
+    def test_09_standart_red_zarfi_uretimi(self):
+        """Duyuru 11 standardı red zarfı beklenen alanları eksiksiz içermelidir."""
+        red = ajan3_denetim.red_zarfi_uret(
+            ajan2_paketi={"mesaj_id": "MSG-G3-TEST-A2-001"},
+            gerekce="Sayısal tutarsızlık",
+            sorunlu_alanlar=["ozet.toplam_sevkiyat"],
+            hata_kodu="ERR_NUMERICAL_INCONSISTENCY",
+        )
+        self.assertEqual(red["durum"], "red")
+        self.assertEqual(red["kaynak_ajan"], "Ajan_3_Denetim")
+        self.assertEqual(red["hedef_ajan"], "Ajan_2_RiskAnaliz")
+        self.assertEqual(red["hata_kodu"], "ERR_NUMERICAL_INCONSISTENCY")
+        self.assertIn("ozet.toplam_sevkiyat", red["sorunlu_alanlar"])
+
 
 if __name__ == "__main__":
     unittest.main()
