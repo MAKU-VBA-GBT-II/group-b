@@ -57,6 +57,27 @@ KORIDOR_SEHIR_HARITASI = {
 class GeriGonderimHatasi(ValueError):
     """Ajan 1 girdisi veya sevkiyat verisi şema/tazelik/birim kuralını ihlal ettiğinde fırlatılır."""
 
+    def __init__(self, gerekce, sorunlu_alanlar=None, hata_kodu="ERR_VALIDATION_FAILED"):
+        super().__init__(gerekce)
+        self.gerekce = gerekce
+        self.sorunlu_alanlar = sorunlu_alanlar or []
+        self.hata_kodu = hata_kodu
+
+    def red_zarfi_olustur(self, referans_mesaj_id="BILINMIYOR", hedef_ajan="Ajan_1_WebToplayici"):
+        zaman_damgasi = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        tarih_kisa = zaman_damgasi[:10].replace("-", "")
+        return {
+            "mesaj_id": f"MSG-G3-{tarih_kisa}-RED-001",
+            "uretim_zamani": zaman_damgasi,
+            "kaynak_ajan": "Ajan_2_RiskAnaliz",
+            "hedef_ajan": hedef_ajan,
+            "referans_mesaj_id": referans_mesaj_id,
+            "durum": "red",
+            "gerekce": self.gerekce,
+            "sorunlu_alanlar": self.sorunlu_alanlar,
+            "hata_kodu": self.hata_kodu,
+        }
+
 
 def metin_normallestir(metin):
     """Türkçe karakterleri ASCII karşılıklarına dönüştürür ve küçük harfe çevirir."""
@@ -109,14 +130,20 @@ def al_ve_dogrula(ajan1_yolu, sevkiyat_yolu, referans_tarih=None, max_yas_gun=3)
 
     for zorunlu in ("mesaj_id", "uretim_zamani", "kaynak_ajan", "hedef_ajan", "veri"):
         if not ajan1_veri.get(zorunlu):
-            raise GeriGonderimHatasi(f"Ajan 1 mesajında eksik zorunlu alan: '{zorunlu}'")
+            raise GeriGonderimHatasi(
+                f"Ajan 1 mesajında eksik zorunlu alan: '{zorunlu}'",
+                sorunlu_alanlar=[zorunlu],
+                hata_kodu="ERR_MISSING_FIELD",
+            )
 
     bugun = referans_tarih if referans_tarih is not None else date.today()
     uretim_tarihi = _tarih_cozumle(ajan1_veri["uretim_zamani"])
     if (bugun - uretim_tarihi).days > max_yas_gun:
         raise GeriGonderimHatasi(
             f"Ajan 1 verisi bayat: üretim tarihi {uretim_tarihi.isoformat()}, "
-            f"referans tarih {bugun.isoformat()} (> {max_yas_gun} gün)."
+            f"referans tarih {bugun.isoformat()} (> {max_yas_gun} gün).",
+            sorunlu_alanlar=["uretim_zamani"],
+            hata_kodu="ERR_STALE_DATA",
         )
 
     veri = ajan1_veri["veri"]
@@ -155,7 +182,9 @@ def al_ve_dogrula(ajan1_yolu, sevkiyat_yolu, referans_tarih=None, max_yas_gun=3)
             raise GeriGonderimHatasi(f"Akaryakıt kaydı #{idx} içinde 'il' eksik.")
         if yakit.get("birim") != "TL/LT":
             raise GeriGonderimHatasi(
-                f"Akaryakıt kaydı #{idx} uyumsuz birim: '{yakit.get('birim')}' (beklenen: 'TL/LT')."
+                f"Akaryakıt kaydı #{idx} uyumsuz birim: '{yakit.get('birim')}' (beklenen: 'TL/LT').",
+                sorunlu_alanlar=[f"veri.akaryakit_fiyatlari[{idx-1}].birim"],
+                hata_kodu="ERR_UNIT_MISMATCH",
             )
         try:
             fiyat = float(yakit.get("fiyat_tl", 0))
@@ -432,6 +461,7 @@ def teslim_paketi_hazirla(analiz_sonucu, ajan1_veri, cikti_json_yolu, cikti_csv_
         "kaynak_ajan": "Ajan_2_RiskAnaliz",
         "hedef_ajan": "Ajan_3_Denetim",
         "referans_mesaj_id": ajan1_veri["mesaj_id"],
+        "durum": "onay",
         "kaynaklar": _benzersiz_kaynaklar_cikar(ajan1_veri),
         "ozet": analiz_sonucu["ozet"],
         "yuksek_riskli_sevkiyatlar": analiz_sonucu["yuksek_riskli_sevkiyatlar"],
@@ -510,6 +540,12 @@ def main():
         help="Tüm sevkiyat risk tablosu CSV çıktı dosyası",
     )
     parser.add_argument(
+        "--cikti-red-json",
+        type=str,
+        default=None,
+        help="Hata durumunda standart red zarfının yazılacağı dosya yolu",
+    )
+    parser.add_argument(
         "--max-yas-gun",
         type=int,
         default=3,
@@ -536,6 +572,12 @@ def main():
         paket = teslim_paketi_hazirla(analiz, ajan1_veri, args.cikti_json, args.cikti_csv)
     except GeriGonderimHatasi as hata:
         print(f"[GERI GONDERIM - AJAN 2] {hata}", file=sys.stderr)
+        if args.cikti_red_json:
+            red_zarfi = hata.red_zarfi_olustur()
+            os.makedirs(os.path.dirname(os.path.abspath(args.cikti_red_json)), exist_ok=True)
+            with open(args.cikti_red_json, "w", encoding="utf-8") as f:
+                json.dump(red_zarfi, f, ensure_ascii=False, indent=2)
+            print(f"[BILGI] Standart red zarfı kaydedildi -> {args.cikti_red_json}", file=sys.stderr)
         sys.exit(2)
 
     ozet = paket["ozet"]
