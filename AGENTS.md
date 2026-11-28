@@ -6,7 +6,13 @@ Ajan, görev aldığında ilgili `SKILL.md` dosyasını okuyup talimatları izle
 | Skill | Konum | Sahibi | Ne işe yarar | Nasıl kullanılır |
 |---|---|---|---|---|
 | dq-sozluk | `skills/dq-sozluk/SKILL.md` | DQ — Ece Naz Aktürk | G2 veri şeması, parametreleri ve analiz planını tanımlar | Görev #46 için bu skill'i oku; `docs/veri-sozlugu.md` hazırla |
-| be-simulasyon | `skills/be-simulasyon/SKILL.md` | BE — Aykut Çakıcı | Parametreli lojistik sevkiyat simülasyon verisi üretir | `python src/simulasyon.py` |
+| be-simulasyon | `skills/be-simulasyon/SKILL.md` | BE / Ajan 2 — Aykut Çakıcı | G3 dinamik parametreli lojistik sevkiyat simülasyon verisi üretir | `python src/simulasyon.py` |
+| ajan2-alma | `skills/ajan2-alma/SKILL.md` | Ajan 2 — Aykut Çakıcı | Ajan 1 web verisini ve şirket CSV'sini şema/tazelik/birim açısından doğrular | `python src/ajan2_risk.py` (Alma aşaması) |
+| ajan2-isleme | `skills/ajan2-isleme/SKILL.md` | Ajan 2 — Aykut Çakıcı | MGM/KGM/akaryakıt verilerini rotalarla eşleştirip 0-100 risk puanı hesaplar | `python src/ajan2_risk.py` (İşleme aşaması) |
+| ajan2-teslim | `skills/ajan2-teslim/SKILL.md` | Ajan 2 — Aykut Çakıcı | Risk çıktısını kaynak URL ve zaman damgalı Ajan 3 JSON/CSV paketine dönüştürür | `python src/ajan2_risk.py` (Teslim aşaması) |
+| ajan3-alma | `skills/ajan3-alma/SKILL.md` | DQ / Ajan 3 — Ece Naz Aktürk | Ajan 2 paketini alır; şema, tazelik, sayısal tutarlılık ve şirket veri seti uyumunu denetler | `python src/ajan3_denetim.py` (Alma aşaması) |
+| ajan3-isleme | `skills/ajan3-isleme/SKILL.md` | DQ / Ajan 3 — Ece Naz Aktürk | Risk puanı eşik süzgecini uygular; yüksek riskli sevkiyatları ve yol/hava olaylarıyla rota gerekçesini denetler | `python src/ajan3_denetim.py` (İşleme aşaması) |
+| ajan3-teslim | `skills/ajan3-teslim/SKILL.md` | DQ / Ajan 3 — Ece Naz Aktürk | Riskli sevkiyatlar için resmi duyuru bağlantılı şeffaf müşteri mesajları üretir ve ACP teslim paketi hazırlar | `python src/ajan3_denetim.py` (Teslim aşaması) |
 | fe-gorsel | `skills/fe-gorsel/SKILL.md` | FE — Sema Coşkun | G2 simülasyon verisinden 3 grafik üretir (zaman serisi, kırılım, dağılım) | `python src/grafik_uret.py` (taslak Issue'ya eklendikten sonra) |
 | dq-analiz | `skills/dq-analiz/SKILL.md` | DQ — Ece Naz Aktürk | Sevkiyat verisinden 5 metrik, gözlem ve eylem önerisi çıkarır | Görev #49 için bu skill'i oku; `docs/analiz-g2.md` hazırla |
 | dq-test | `skills/dq-test/SKILL.md` | DQ — Ece Naz Aktürk | G2 test senaryolarını tanımlar ve PR doğrulamasını yürütür | Görev #50 için bu skill'i oku; `tests/test-cases.md` hazırla |

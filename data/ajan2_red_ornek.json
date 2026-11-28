@@ -1,0 +1,13 @@
+{
+  "mesaj_id": "MSG-G3-20261128-RED-001",
+  "uretim_zamani": "2026-11-28T12:36:24Z",
+  "kaynak_ajan": "Ajan_2_RiskAnaliz",
+  "hedef_ajan": "Ajan_1_WebToplayici",
+  "referans_mesaj_id": "BILINMIYOR",
+  "durum": "red",
+  "gerekce": "Ajan 1 verisi bayat: üretim tarihi 2026-11-10, referans tarih 2026-11-28 (> 3 gün).",
+  "sorunlu_alanlar": [
+    "uretim_zamani"
+  ],
+  "hata_kodu": "ERR_STALE_DATA"
+}

@@ -1,0 +1,15 @@
+{
+  "mesaj_id": "MSG-G3-20261128-RED-001",
+  "uretim_zamani": "2026-11-28T10:00:00Z",
+  "kaynak_ajan": "Ajan_3_Denetim",
+  "hedef_ajan": "Ajan_2_RiskAnaliz",
+  "referans_mesaj_id": "MSG-G3-20261128-A2-001",
+  "durum": "red",
+  "gerekce": "Ajan 2 özet verilerinde sayısal tutarsızlık tespit edildi: toplam_sevkiyat (150) != aktif_sevkiyat (134) + iptal_sevkiyat (6).",
+  "sorunlu_alanlar": [
+    "ozet.toplam_sevkiyat",
+    "ozet.aktif_sevkiyat",
+    "ozet.iptal_sevkiyat"
+  ],
+  "hata_kodu": "ERR_NUMERICAL_INCONSISTENCY"
+}

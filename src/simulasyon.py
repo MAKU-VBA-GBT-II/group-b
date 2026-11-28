@@ -102,7 +102,18 @@ def mesafe_getir(sehir_a, sehir_b):
     return 650
 
 
-def parametreleri_dogrula(tohum, gun_sayisi, gunluk_sevkiyat, gecikme_olasiligi, iptal_olasiligi, sehirler=None):
+def parametreleri_dogrula(
+    tohum,
+    gun_sayisi,
+    gunluk_sevkiyat,
+    gecikme_olasiligi,
+    iptal_olasiligi,
+    sehirler=None,
+    baslangic_tarihi_str="2026-11-20",
+    fiyat_carpani=1.0,
+    min_agirlik=50,
+    max_agirlik=10000,
+):
     """Girdi parametrelerinin geçerlilik aralıklarını kontrol eder."""
     if not isinstance(tohum, int):
         raise ValueError(f"Tohum tam sayı olmalıdır. Girilen: {tohum}")
@@ -119,8 +130,24 @@ def parametreleri_dogrula(tohum, gun_sayisi, gunluk_sevkiyat, gecikme_olasiligi,
             f"Gecikme ve iptal olasılıkları toplamı 1.0'dan küçük olmalıdır. "
             f"Toplam: {gecikme_olasiligi + iptal_olasiligi}"
         )
-    if sehirler and len(sehirler) < 2:
-        raise ValueError("Simülasyon için en az 2 farklı şehir tanımlanmalıdır.")
+    if fiyat_carpani <= 0:
+        raise ValueError(f"Fiyat çarpanı pozitif olmalıdır. Girilen: {fiyat_carpani}")
+    if not isinstance(min_agirlik, int) or not isinstance(max_agirlik, int):
+        raise ValueError("Ağırlık sınırları tam sayı olmalıdır.")
+    if min_agirlik <= 0 or max_agirlik < min_agirlik:
+        raise ValueError(
+            f"Geçersiz ağırlık aralığı: min={min_agirlik}, max={max_agirlik}"
+        )
+    try:
+        date.fromisoformat(baslangic_tarihi_str)
+    except ValueError as exc:
+        raise ValueError(
+            f"Başlangıç tarihi ISO YYYY-MM-DD formatında olmalıdır. Girilen: {baslangic_tarihi_str}"
+        ) from exc
+    if sehirler is not None:
+        temiz_sehirler = [s for s in sehirler if s]
+        if len(set(temiz_sehirler)) < 2:
+            raise ValueError("Simülasyon için en az 2 farklı şehir tanımlanmalıdır.")
 
 
 def simule_et(
@@ -140,12 +167,22 @@ def simule_et(
     Duyuru 10 şartlarına uygun olarak dinamik parametreler ve web kaynaklarıyla eşleşebilen
     sentetik sevkiyat veri seti üretir.
     """
-    aktif_sehirler = sehirler if sehirler else VARSAYILAN_SEHIRLER
-    parametreleri_dogrula(tohum, gun_sayisi, gunluk_sevkiyat, gecikme_olasiligi, iptal_olasiligi, aktif_sehirler)
+    aktif_sehirler = [s.strip() for s in sehirler if s and s.strip()] if sehirler else VARSAYILAN_SEHIRLER
+    parametreleri_dogrula(
+        tohum,
+        gun_sayisi,
+        gunluk_sevkiyat,
+        gecikme_olasiligi,
+        iptal_olasiligi,
+        aktif_sehirler,
+        baslangic_tarihi_str=baslangic_tarihi_str,
+        fiyat_carpani=fiyat_carpani,
+        min_agirlik=min_agirlik,
+        max_agirlik=max_agirlik,
+    )
 
     rng = random.Random(tohum)
-    yil, ay, gun = map(int, baslangic_tarihi_str.split("-"))
-    baslangic_tarihi = date(yil, ay, gun)
+    baslangic_tarihi = date.fromisoformat(baslangic_tarihi_str)
 
     zamaninda_olasiligi = 1.0 - gecikme_olasiligi - iptal_olasiligi
     durumlar = ["zamaninda", "gecikmeli", "iptal"]
@@ -231,8 +268,12 @@ def dogrula(veri):
         gorulen_id_kumesi.add(sid)
 
         # 2. tarih kontrolü
-        if not re.fullmatch(r"2026-\d{2}-\d{2}", tarih):
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", tarih):
             raise ValueError(f"Satır {i}: Tarih formatı ISO YYYY-MM-DD olmalıdır: {tarih}")
+        try:
+            date.fromisoformat(tarih)
+        except ValueError as exc:
+            raise ValueError(f"Satır {i}: Geçersiz takvim tarihi: {tarih}") from exc
 
         # 3. şehir kontrolleri
         if cikis == varis:
@@ -284,11 +325,14 @@ def main():
     parser.add_argument("--sehirler", type=str, default=None, help="Virgülle ayrılmış şehir listesi (örn: 'Istanbul,Ankara,Izmir,Trabzon')")
     parser.add_argument("--baslangic-tarihi", type=str, default="2026-11-20", help="Simülasyon başlangıç tarihi YYYY-MM-DD (varsayılan: 2026-11-20)")
     parser.add_argument("--fiyat-carpani", type=float, default=1.0, help="Akaryakıt/fiyat katsayısı (varsayılan: 1.0)")
+    parser.add_argument("--min-agirlik", type=int, default=50, help="Minimum yük ağırlığı kg (varsayılan: 50)")
+    parser.add_argument("--max-agirlik", type=int, default=10000, help="Maksimum yük ağırlığı kg (varsayılan: 10000)")
+    parser.add_argument("--id-oneki", type=str, default="SVK-G3", help="Sevkiyat ID öneki (varsayılan: SVK-G3)")
     parser.add_argument("--cikti-dosyasi", "--output", type=str, default=None, help="Çıktı CSV dosya yolu")
 
     args = parser.parse_args()
 
-    sehir_listesi = [s.strip() for s in args.sehirler.split(",")] if args.sehirler else None
+    sehir_listesi = [s.strip() for s in args.sehirler.split(",") if s.strip()] if args.sehirler else None
 
     # Veriyi üret
     veri = simule_et(
@@ -300,7 +344,9 @@ def main():
         sehirler=sehir_listesi,
         baslangic_tarihi_str=args.baslangic_tarihi,
         fiyat_carpani=args.fiyat_carpani,
-        id_oneki="SVK-G3"
+        min_agirlik=args.min_agirlik,
+        max_agirlik=args.max_agirlik,
+        id_oneki=args.id_oneki,
     )
 
     # Veriyi doğrula

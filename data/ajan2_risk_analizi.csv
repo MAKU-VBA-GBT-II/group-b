@@ -1,0 +1,141 @@
+sevkiyat_id,tarih,rota,tasima_modu,durum,baz_ucret_tl,yakit_etkili_ucret_tl,risk_puani,risk_seviyesi,ek_gecikme_saat,tahmini_teslim_suresi_saat,risk_nedenleri,kaynak_sayisi
+SVK-G3-0001,2026-11-20,Ankara -> Istanbul,hava,zamaninda,3507.00,3535.76,0,dusuk,0.0,5.6,normal_akıs,1
+SVK-G3-0002,2026-11-20,Ankara -> Adana,kara,zamaninda,1053.00,1061.63,15,dusuk,4.0,14.5,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0003,2026-11-20,Istanbul -> Adana,kara,zamaninda,5985.00,5956.87,15,dusuk,4.0,22.2,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0004,2026-11-20,Antalya -> Gaziantep,demiryolu,zamaninda,2298.50,2355.27,5,dusuk,0.0,19.5,yuksek_akaryakit_maliyeti,1
+SVK-G3-0005,2026-11-20,Izmir -> Ankara,demiryolu,zamaninda,3490.00,3531.18,0,dusuk,0.0,15.3,normal_akıs,1
+SVK-G3-0006,2026-11-20,Adana -> Gaziantep,kara,gecikmeli,2543.50,2591.32,35,orta,4.0,30.0,operasyonel_gecikme;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0007,2026-11-20,Ankara -> Antalya,kara,gecikmeli,3194.50,3220.69,35,orta,4.0,31.8,operasyonel_gecikme;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0008,2026-11-20,Adana -> Antalya,kara,zamaninda,1498.50,1526.67,15,dusuk,4.0,15.6,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0009,2026-11-20,Antalya -> Istanbul,demiryolu,zamaninda,1692.00,1733.79,5,dusuk,0.0,17.8,yuksek_akaryakit_maliyeti,1
+SVK-G3-0010,2026-11-20,Adana -> Ankara,kara,zamaninda,2525.00,2572.47,15,dusuk,4.0,16.3,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0011,2026-11-20,Ankara -> Adana,deniz,zamaninda,4870.90,4910.84,0,dusuk,0.0,19.0,normal_akıs,1
+SVK-G3-0012,2026-11-20,Trabzon -> Izmir,demiryolu,zamaninda,6159.50,6267.91,0,dusuk,0.0,29.5,normal_akıs,1
+SVK-G3-0013,2026-11-20,Istanbul -> Izmir,demiryolu,zamaninda,3185.00,3170.03,0,dusuk,0.0,11.9,normal_akıs,1
+SVK-G3-0014,2026-11-20,Adana -> Ankara,hava,gecikmeli,4874.00,4965.63,20,dusuk,0.0,21.6,operasyonel_gecikme,1
+SVK-G3-0015,2026-11-20,Izmir -> Bursa,kara,zamaninda,5151.50,5212.29,0,dusuk,0.0,10.1,normal_akıs,1
+SVK-G3-0016,2026-11-20,Trabzon -> Antalya,kara,iptal,3749.50,3815.49,0,iptal,,,sevkiyat_iptal,1
+SVK-G3-0017,2026-11-20,Izmir -> Adana,kara,gecikmeli,1850.50,1872.34,35,orta,4.0,28.9,operasyonel_gecikme;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0018,2026-11-20,Izmir -> Gaziantep,hava,zamaninda,8550.50,8651.40,0,dusuk,0.0,5.2,normal_akıs,1
+SVK-G3-0019,2026-11-20,Gaziantep -> Antalya,kara,gecikmeli,5845.00,5961.90,40,orta,4.0,24.6,operasyonel_gecikme;yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0020,2026-11-20,Ankara -> Trabzon,demiryolu,zamaninda,3092.50,3117.86,0,dusuk,0.0,18.1,normal_akıs,1
+SVK-G3-0021,2026-11-21,Antalya -> Bursa,kara,iptal,923.50,946.31,0,iptal,,,sevkiyat_iptal,1
+SVK-G3-0022,2026-11-21,Antalya -> Adana,hava,gecikmeli,6035.50,6184.58,25,dusuk,0.0,26.3,operasyonel_gecikme;yuksek_akaryakit_maliyeti,1
+SVK-G3-0023,2026-11-21,Antalya -> Gaziantep,deniz,zamaninda,2426.80,2486.74,5,dusuk,0.0,31.9,yuksek_akaryakit_maliyeti,1
+SVK-G3-0024,2026-11-21,Istanbul -> Adana,kara,zamaninda,1680.50,1672.60,15,dusuk,4.0,21.8,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0025,2026-11-21,Antalya -> Ankara,kara,gecikmeli,5440.50,5574.88,40,orta,4.0,21.1,operasyonel_gecikme;yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0026,2026-11-21,Gaziantep -> Trabzon,kara,zamaninda,5596.50,5708.43,55,orta,16.0,30.1,yuksek_akaryakit_maliyeti;kgm_kapali_Ilgar Geçidi;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),3
+SVK-G3-0027,2026-11-21,Gaziantep -> Antalya,kara,gecikmeli,5635.50,5748.21,40,orta,4.0,32.8,operasyonel_gecikme;yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0028,2026-11-21,Bursa -> Adana,hava,zamaninda,4412.50,4443.83,0,dusuk,0.0,4.8,normal_akıs,1
+SVK-G3-0029,2026-11-21,Adana -> Bursa,demiryolu,zamaninda,4725.50,4814.34,0,dusuk,0.0,19.6,normal_akıs,1
+SVK-G3-0030,2026-11-21,Adana -> Istanbul,deniz,zamaninda,2807.60,2860.38,0,dusuk,0.0,33.2,normal_akıs,1
+SVK-G3-0031,2026-11-21,Istanbul -> Izmir,kara,gecikmeli,1050.00,1045.07,20,dusuk,0.0,16.8,operasyonel_gecikme,1
+SVK-G3-0032,2026-11-21,Bursa -> Izmir,hava,zamaninda,2864.00,2884.33,0,dusuk,0.0,5.4,normal_akıs,1
+SVK-G3-0033,2026-11-21,Gaziantep -> Ankara,hava,zamaninda,5575.50,5687.01,5,dusuk,0.0,3.4,yuksek_akaryakit_maliyeti,1
+SVK-G3-0034,2026-11-21,Trabzon -> Izmir,kara,gecikmeli,5946.50,6051.16,55,orta,12.0,41.2,operasyonel_gecikme;kgm_kapali_Ilgar Geçidi,2
+SVK-G3-0035,2026-11-21,Ankara -> Istanbul,kara,gecikmeli,3524.50,3553.40,35,orta,4.0,21.1,operasyonel_gecikme;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0036,2026-11-21,Bursa -> Ankara,deniz,zamaninda,1542.60,1553.55,0,dusuk,0.0,15.9,normal_akıs,1
+SVK-G3-0037,2026-11-21,Bursa -> Gaziantep,demiryolu,gecikmeli,4903.00,4937.81,20,dusuk,0.0,45.9,operasyonel_gecikme,1
+SVK-G3-0038,2026-11-21,Ankara -> Istanbul,hava,gecikmeli,5929.00,5977.62,20,dusuk,0.0,28.1,operasyonel_gecikme,1
+SVK-G3-0039,2026-11-21,Bursa -> Ankara,kara,zamaninda,4584.00,4616.55,15,dusuk,4.0,13.5,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0040,2026-11-21,Istanbul -> Izmir,kara,zamaninda,3991.00,3972.24,0,dusuk,0.0,12.5,normal_akıs,1
+SVK-G3-0041,2026-11-22,Gaziantep -> Izmir,kara,zamaninda,6353.50,6480.57,20,dusuk,4.0,25.0,yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0042,2026-11-22,Bursa -> Izmir,kara,zamaninda,1032.00,1039.33,0,dusuk,0.0,9.2,normal_akıs,1
+SVK-G3-0043,2026-11-22,Adana -> Istanbul,kara,zamaninda,5426.50,5528.52,15,dusuk,4.0,23.8,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0044,2026-11-22,Izmir -> Istanbul,demiryolu,gecikmeli,1257.00,1271.83,20,dusuk,0.0,19.0,operasyonel_gecikme,1
+SVK-G3-0045,2026-11-22,Ankara -> Trabzon,demiryolu,zamaninda,4214.50,4249.06,0,dusuk,0.0,20.3,normal_akıs,1
+SVK-G3-0046,2026-11-22,Bursa -> Adana,deniz,zamaninda,1498.10,1508.74,0,dusuk,0.0,32.2,normal_akıs,1
+SVK-G3-0047,2026-11-22,Adana -> Izmir,kara,zamaninda,4038.50,4114.42,15,dusuk,4.0,21.4,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0048,2026-11-22,Antalya -> Bursa,kara,zamaninda,1491.00,1527.83,5,dusuk,0.0,12.9,yuksek_akaryakit_maliyeti,1
+SVK-G3-0049,2026-11-22,Ankara -> Istanbul,deniz,zamaninda,4601.00,4638.73,0,dusuk,0.0,20.7,normal_akıs,1
+SVK-G3-0050,2026-11-22,Ankara -> Izmir,kara,zamaninda,2261.00,2279.54,15,dusuk,4.0,17.2,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0051,2026-11-22,Antalya -> Adana,demiryolu,zamaninda,5036.00,5160.39,5,dusuk,0.0,16.6,yuksek_akaryakit_maliyeti,1
+SVK-G3-0052,2026-11-22,Antalya -> Trabzon,kara,zamaninda,3053.00,3128.41,40,orta,12.0,36.1,yuksek_akaryakit_maliyeti;kgm_kapali_Ilgar Geçidi,2
+SVK-G3-0053,2026-11-22,Izmir -> Bursa,kara,zamaninda,2278.00,2304.88,0,dusuk,0.0,7.9,normal_akıs,1
+SVK-G3-0054,2026-11-22,Antalya -> Adana,kara,zamaninda,1345.00,1378.22,20,dusuk,4.0,16.4,yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0055,2026-11-22,Antalya -> Istanbul,kara,zamaninda,2216.50,2271.25,5,dusuk,0.0,13.8,yuksek_akaryakit_maliyeti,1
+SVK-G3-0056,2026-11-22,Gaziantep -> Antalya,hava,zamaninda,7259.50,7404.69,5,dusuk,0.0,3.5,yuksek_akaryakit_maliyeti,1
+SVK-G3-0057,2026-11-22,Izmir -> Adana,kara,zamaninda,4489.50,4542.48,15,dusuk,4.0,20.4,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0058,2026-11-22,Izmir -> Istanbul,kara,gecikmeli,1119.50,1132.71,20,dusuk,0.0,19.6,operasyonel_gecikme,1
+SVK-G3-0059,2026-11-22,Bursa -> Trabzon,kara,gecikmeli,6251.50,6295.89,55,orta,12.0,43.9,operasyonel_gecikme;kgm_kapali_Ilgar Geçidi,2
+SVK-G3-0060,2026-11-22,Izmir -> Ankara,demiryolu,gecikmeli,2183.00,2208.76,20,dusuk,0.0,20.3,operasyonel_gecikme,1
+SVK-G3-0061,2026-11-23,Adana -> Gaziantep,demiryolu,zamaninda,2321.50,2365.14,0,dusuk,0.0,9.5,normal_akıs,1
+SVK-G3-0062,2026-11-23,Ankara -> Antalya,demiryolu,zamaninda,4456.50,4493.04,0,dusuk,0.0,14.9,normal_akıs,1
+SVK-G3-0063,2026-11-23,Gaziantep -> Izmir,kara,zamaninda,3665.00,3738.30,20,dusuk,4.0,25.7,yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0064,2026-11-23,Trabzon -> Izmir,kara,iptal,2689.50,2736.84,0,iptal,,,sevkiyat_iptal,1
+SVK-G3-0065,2026-11-23,Antalya -> Izmir,deniz,zamaninda,3740.60,3832.99,5,dusuk,0.0,20.7,yuksek_akaryakit_maliyeti,1
+SVK-G3-0066,2026-11-23,Adana -> Istanbul,kara,zamaninda,3660.50,3729.32,15,dusuk,4.0,24.2,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0067,2026-11-23,Antalya -> Istanbul,kara,zamaninda,4704.50,4820.70,5,dusuk,0.0,15.9,yuksek_akaryakit_maliyeti,1
+SVK-G3-0068,2026-11-23,Trabzon -> Antalya,demiryolu,zamaninda,2418.00,2460.56,0,dusuk,0.0,28.4,normal_akıs,1
+SVK-G3-0069,2026-11-23,Antalya -> Istanbul,hava,zamaninda,2334.50,2392.16,5,dusuk,0.0,6.3,yuksek_akaryakit_maliyeti,1
+SVK-G3-0070,2026-11-23,Bursa -> Izmir,kara,zamaninda,3257.50,3280.63,0,dusuk,0.0,9.7,normal_akıs,1
+SVK-G3-0071,2026-11-23,Ankara -> Trabzon,demiryolu,zamaninda,5061.00,5102.50,0,dusuk,0.0,18.3,normal_akıs,1
+SVK-G3-0072,2026-11-23,Trabzon -> Adana,kara,zamaninda,2467.50,2510.93,50,orta,16.0,34.1,kgm_kapali_Ilgar Geçidi;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),3
+SVK-G3-0073,2026-11-23,Trabzon -> Adana,hava,zamaninda,4322.50,4398.58,0,dusuk,0.0,4.5,normal_akıs,1
+SVK-G3-0074,2026-11-23,Istanbul -> Bursa,kara,zamaninda,3794.50,3776.67,0,dusuk,0.0,6.8,normal_akıs,1
+SVK-G3-0075,2026-11-23,Adana -> Bursa,kara,zamaninda,3111.50,3170.00,15,dusuk,4.0,22.0,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0076,2026-11-23,Izmir -> Trabzon,kara,zamaninda,6343.50,6418.35,35,orta,12.0,36.6,kgm_kapali_Ilgar Geçidi,2
+SVK-G3-0077,2026-11-23,Ankara -> Gaziantep,demiryolu,zamaninda,2759.00,2781.62,0,dusuk,0.0,16.4,normal_akıs,1
+SVK-G3-0078,2026-11-23,Bursa -> Ankara,kara,iptal,2646.50,2665.29,0,iptal,,,sevkiyat_iptal,1
+SVK-G3-0079,2026-11-23,Ankara -> Antalya,kara,zamaninda,5508.50,5553.67,15,dusuk,4.0,16.2,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0080,2026-11-23,Gaziantep -> Bursa,kara,gecikmeli,1734.00,1768.68,40,orta,4.0,45.2,operasyonel_gecikme;yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0081,2026-11-24,Ankara -> Gaziantep,kara,gecikmeli,2545.50,2566.37,35,orta,4.0,36.3,operasyonel_gecikme;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0082,2026-11-24,Gaziantep -> Istanbul,deniz,zamaninda,2113.40,2155.67,5,dusuk,0.0,43.2,yuksek_akaryakit_maliyeti,1
+SVK-G3-0083,2026-11-24,Adana -> Gaziantep,demiryolu,zamaninda,4424.00,4507.17,0,dusuk,0.0,10.0,normal_akıs,1
+SVK-G3-0084,2026-11-24,Gaziantep -> Ankara,hava,zamaninda,6129.50,6252.09,5,dusuk,0.0,6.0,yuksek_akaryakit_maliyeti,1
+SVK-G3-0085,2026-11-24,Antalya -> Gaziantep,hava,zamaninda,6634.50,6798.37,5,dusuk,0.0,4.3,yuksek_akaryakit_maliyeti,1
+SVK-G3-0086,2026-11-24,Ankara -> Trabzon,kara,zamaninda,3426.50,3454.60,50,orta,16.0,32.9,kgm_kapali_Ilgar Geçidi;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),3
+SVK-G3-0087,2026-11-24,Ankara -> Izmir,kara,zamaninda,4106.50,4140.17,15,dusuk,4.0,17.9,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0088,2026-11-24,Ankara -> Antalya,kara,zamaninda,5238.00,5280.95,15,dusuk,4.0,13.6,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0089,2026-11-24,Trabzon -> Bursa,demiryolu,gecikmeli,6039.50,6145.80,20,dusuk,0.0,28.9,operasyonel_gecikme,1
+SVK-G3-0090,2026-11-24,Trabzon -> Bursa,kara,zamaninda,4546.50,4626.52,35,orta,12.0,31.3,kgm_kapali_Ilgar Geçidi,2
+SVK-G3-0091,2026-11-24,Trabzon -> Antalya,hava,zamaninda,8450.50,8599.23,0,dusuk,0.0,7.4,normal_akıs,1
+SVK-G3-0092,2026-11-24,Gaziantep -> Ankara,kara,zamaninda,5083.00,5184.66,20,dusuk,4.0,17.7,yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0093,2026-11-24,Trabzon -> Adana,kara,gecikmeli,5253.50,5345.96,70,yuksek,16.0,57.1,operasyonel_gecikme;kgm_kapali_Ilgar Geçidi;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),3
+SVK-G3-0094,2026-11-24,Istanbul -> Antalya,deniz,zamaninda,919.00,914.68,0,dusuk,0.0,27.0,normal_akıs,1
+SVK-G3-0095,2026-11-24,Gaziantep -> Ankara,kara,zamaninda,4210.50,4294.71,20,dusuk,4.0,18.2,yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0096,2026-11-24,Adana -> Gaziantep,demiryolu,zamaninda,2568.00,2616.28,0,dusuk,0.0,9.7,normal_akıs,1
+SVK-G3-0097,2026-11-24,Antalya -> Gaziantep,kara,zamaninda,1471.50,1507.85,20,dusuk,4.0,18.6,yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0098,2026-11-24,Adana -> Ankara,hava,zamaninda,1962.50,1999.39,0,dusuk,0.0,6.5,normal_akıs,1
+SVK-G3-0099,2026-11-24,Bursa -> Gaziantep,kara,zamaninda,2937.00,2957.85,15,dusuk,4.0,23.9,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0100,2026-11-24,Ankara -> Adana,demiryolu,zamaninda,4422.50,4458.76,0,dusuk,0.0,14.9,normal_akıs,1
+SVK-G3-0101,2026-11-25,Izmir -> Adana,deniz,zamaninda,1827.00,1848.56,0,dusuk,0.0,32.7,normal_akıs,1
+SVK-G3-0102,2026-11-25,Antalya -> Istanbul,deniz,zamaninda,3252.50,3332.84,5,dusuk,0.0,29.0,yuksek_akaryakit_maliyeti,1
+SVK-G3-0103,2026-11-25,Trabzon -> Bursa,demiryolu,zamaninda,2879.50,2930.18,0,dusuk,0.0,25.3,normal_akıs,1
+SVK-G3-0104,2026-11-25,Bursa -> Istanbul,hava,gecikmeli,3003.50,3024.82,20,dusuk,0.0,20.2,operasyonel_gecikme,1
+SVK-G3-0105,2026-11-25,Ankara -> Gaziantep,demiryolu,zamaninda,1171.00,1180.60,0,dusuk,0.0,17.2,normal_akıs,1
+SVK-G3-0106,2026-11-25,Adana -> Istanbul,deniz,zamaninda,3717.60,3787.49,0,dusuk,0.0,34.8,normal_akıs,1
+SVK-G3-0107,2026-11-25,Gaziantep -> Istanbul,kara,zamaninda,4816.00,4912.32,20,dusuk,4.0,26.9,yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0108,2026-11-25,Izmir -> Antalya,kara,iptal,5035.00,5094.41,0,iptal,,,sevkiyat_iptal,1
+SVK-G3-0109,2026-11-25,Antalya -> Adana,demiryolu,zamaninda,5111.50,5237.75,5,dusuk,0.0,15.2,yuksek_akaryakit_maliyeti,1
+SVK-G3-0110,2026-11-25,Antalya -> Izmir,demiryolu,zamaninda,1286.50,1318.28,5,dusuk,0.0,13.0,yuksek_akaryakit_maliyeti,1
+SVK-G3-0111,2026-11-25,Gaziantep -> Antalya,deniz,zamaninda,3902.30,3980.35,5,dusuk,0.0,30.8,yuksek_akaryakit_maliyeti,1
+SVK-G3-0112,2026-11-25,Adana -> Ankara,kara,zamaninda,3715.50,3785.35,15,dusuk,4.0,14.9,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0113,2026-11-25,Antalya -> Adana,kara,zamaninda,2494.00,2555.60,20,dusuk,4.0,17.6,yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0114,2026-11-25,Gaziantep -> Antalya,hava,zamaninda,6565.00,6696.30,5,dusuk,0.0,5.2,yuksek_akaryakit_maliyeti,1
+SVK-G3-0115,2026-11-25,Istanbul -> Ankara,kara,zamaninda,4057.50,4038.43,15,dusuk,4.0,14.1,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0116,2026-11-25,Adana -> Bursa,deniz,zamaninda,3642.60,3711.08,0,dusuk,0.0,32.8,normal_akıs,1
+SVK-G3-0117,2026-11-25,Adana -> Izmir,hava,zamaninda,5196.00,5293.68,0,dusuk,0.0,4.3,normal_akıs,1
+SVK-G3-0118,2026-11-25,Bursa -> Izmir,kara,iptal,4942.50,4977.59,0,iptal,,,sevkiyat_iptal,1
+SVK-G3-0119,2026-11-25,Izmir -> Ankara,kara,zamaninda,4935.50,4993.74,15,dusuk,4.0,17.4,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0120,2026-11-25,Antalya -> Istanbul,demiryolu,zamaninda,3291.50,3372.80,5,dusuk,0.0,16.7,yuksek_akaryakit_maliyeti,1
+SVK-G3-0121,2026-11-26,Istanbul -> Trabzon,deniz,zamaninda,3294.40,3278.92,0,dusuk,0.0,37.7,normal_akıs,1
+SVK-G3-0122,2026-11-26,Antalya -> Trabzon,demiryolu,zamaninda,5492.00,5627.65,5,dusuk,0.0,26.1,yuksek_akaryakit_maliyeti,1
+SVK-G3-0123,2026-11-26,Antalya -> Bursa,kara,zamaninda,3688.00,3779.09,5,dusuk,0.0,10.6,yuksek_akaryakit_maliyeti,1
+SVK-G3-0124,2026-11-26,Gaziantep -> Istanbul,demiryolu,zamaninda,4675.50,4769.01,5,dusuk,0.0,27.1,yuksek_akaryakit_maliyeti,1
+SVK-G3-0125,2026-11-26,Istanbul -> Izmir,kara,gecikmeli,5403.50,5378.10,20,dusuk,0.0,17.1,operasyonel_gecikme,1
+SVK-G3-0126,2026-11-26,Bursa -> Istanbul,deniz,zamaninda,3582.80,3608.24,0,dusuk,0.0,10.3,normal_akıs,1
+SVK-G3-0127,2026-11-26,Bursa -> Gaziantep,deniz,gecikmeli,4713.90,4747.37,20,dusuk,0.0,48.6,operasyonel_gecikme,1
+SVK-G3-0128,2026-11-26,Trabzon -> Izmir,deniz,zamaninda,1775.60,1806.85,0,dusuk,0.0,48.6,normal_akıs,1
+SVK-G3-0129,2026-11-26,Bursa -> Trabzon,kara,zamaninda,2330.00,2346.54,35,orta,12.0,30.5,kgm_kapali_Ilgar Geçidi,2
+SVK-G3-0130,2026-11-26,Ankara -> Izmir,kara,zamaninda,4659.50,4697.71,15,dusuk,4.0,17.0,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0131,2026-11-26,Istanbul -> Izmir,kara,zamaninda,3109.00,3094.39,0,dusuk,0.0,11.2,normal_akıs,1
+SVK-G3-0132,2026-11-26,Bursa -> Izmir,hava,zamaninda,5940.50,5982.68,0,dusuk,0.0,6.2,normal_akıs,1
+SVK-G3-0133,2026-11-26,Trabzon -> Istanbul,deniz,gecikmeli,2267.90,2307.82,20,dusuk,0.0,60.0,operasyonel_gecikme,1
+SVK-G3-0134,2026-11-26,Ankara -> Istanbul,kara,zamaninda,3264.50,3291.27,15,dusuk,4.0,16.2,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0135,2026-11-26,Antalya -> Bursa,kara,zamaninda,3388.00,3471.68,5,dusuk,0.0,14.2,yuksek_akaryakit_maliyeti,1
+SVK-G3-0136,2026-11-26,Gaziantep -> Bursa,kara,gecikmeli,2015.50,2055.81,40,orta,4.0,42.7,operasyonel_gecikme;yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0137,2026-11-26,Antalya -> Istanbul,kara,zamaninda,5857.00,6001.67,5,dusuk,0.0,12.9,yuksek_akaryakit_maliyeti,1
+SVK-G3-0138,2026-11-26,Antalya -> Adana,kara,zamaninda,2364.00,2422.39,20,dusuk,4.0,17.3,yuksek_akaryakit_maliyeti;kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2
+SVK-G3-0139,2026-11-26,Antalya -> Ankara,demiryolu,zamaninda,4171.50,4274.54,5,dusuk,0.0,13.6,yuksek_akaryakit_maliyeti,1
+SVK-G3-0140,2026-11-26,Ankara -> Antalya,kara,zamaninda,3523.00,3551.89,15,dusuk,4.0,13.8,kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu),2

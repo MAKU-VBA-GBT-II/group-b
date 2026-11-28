@@ -38,6 +38,8 @@ Sistemde:
 | `--baslangic-tarihi` | Metin | `2026-11-20` | `YYYY-MM-DD` ISO başlangıç tarihi |
 | `--sehirler` | Metin | `None` (Tüm 8 merkez) | Web uyarısı alan illere odaklanmak için virgülle ayrılmış şehir listesi (örn: `"Istanbul,Ankara,Trabzon"`) |
 | `--fiyat-carpani` | Ondalık | `1.0` | Dış piyasadan çekilen akaryakıt fiyatına göre dinamik navlun çarpanı |
+| `--min-agirlik` | Tam sayı | `50` | Minimum sevkiyat ağırlığı (kg) |
+| `--max-agirlik` | Tam sayı | `10000` | Maksimum sevkiyat ağırlığı (kg) |
 | `--gecikme-olasiligi`| Ondalık | `0.15` | Baz operasyonel gecikme olasılığı |
 | `--iptal-olasiligi`  | Ondalık | `0.05` | Baz iptal olasılığı |
 
@@ -54,7 +56,7 @@ Sistemde:
 | `tasima_modu` | String | Evet | `kara`, `deniz`, `hava`, `demiryolu` | `kara` |
 | `agirlik_kg` | Integer | Evet | `50` - `10000` kg arası tam sayı | `4538` |
 | `mesafe_km` | Integer | Evet | Karayolu ve mod katsayılı mesafe (`100` - `1800` km) | `700` |
-| `ucret_tl` | Float | Evet | `(agirlik * 0.50) + (mesafe * mod_çarpanı * 1.6) * fiyat_carpani` (2 ondalık) | `3389.00` |
+| `ucret_tl` | Float | Evet | `((agirlik * 0.50) + (mesafe * mod_çarpanı * 1.6)) * fiyat_carpani` (2 ondalık) | `3389.00` |
 | `teslim_suresi_saat` | Float | Koşullu | 1 ondalık basamak. **Kural:** `durum == 'iptal'` ise **BOŞ** kalmalıdır. | `24.0` |
 | `durum` | String | Evet | `zamaninda`, `gecikmeli`, `iptal` | `gecikmeli` |
 
@@ -102,7 +104,7 @@ Ajan 1'den Ajan 2'ye ve Ajan 2'den Ajan 3'e aktarılan mesaj paketlerinde bulunm
 ---
 
 ## 7. Kabul ve Doğrulama Kriterleri
-- [ ] `src/simulasyon.py` betiği `--sehirler` argümanıyla sadece seçilen iller arasında sevkiyat üretebilmelidir.
-- [ ] Dış web kaynaklarındaki il isimleri ile simülasyondaki `cikis_sehri` ve `varis_sehri` birebir uyumlu olmalıdır.
-- [ ] `durum == 'iptal'` kayıtlarında `teslim_suresi_saat` alanı kesinlikle boş bırakılmalıdır.
-- [ ] Üretilen tüm sayılar kaynak URL ve zaman damgasıyla taşınmalıdır.
+- [x] `src/simulasyon.py` betiği `--sehirler` argümanıyla sadece seçilen iller arasında sevkiyat üretebilmelidir.
+- [x] Dış web kaynaklarındaki il isimleri ile simülasyondaki `cikis_sehri` ve `varis_sehri` birebir uyumlu olmalıdır.
+- [x] `durum == 'iptal'` kayıtlarında `teslim_suresi_saat` alanı kesinlikle boş bırakılmalıdır.
+- [x] Üretilen tüm sayılar kaynak URL ve zaman damgasıyla taşınmalıdır.
