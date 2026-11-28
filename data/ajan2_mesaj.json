@@ -1,0 +1,100 @@
+{
+  "mesaj_id": "MSG-G3-20261125-A2-001",
+  "uretim_zamani": "2026-11-25T23:14:55Z",
+  "kaynak_ajan": "Ajan_2_RiskAnaliz",
+  "hedef_ajan": "Ajan_3_Denetim",
+  "referans_mesaj_id": "MSG-G3-20261126-001",
+  "kaynaklar": [
+    {
+      "kaynak": "KGM",
+      "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+      "erisim_tarihi": "2026-11-26"
+    },
+    {
+      "kaynak": "AKARYAKIT",
+      "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+      "erisim_tarihi": "2026-11-26"
+    }
+  ],
+  "ozet": {
+    "toplam_sevkiyat": 140,
+    "aktif_sevkiyat": 134,
+    "iptal_sevkiyat": 6,
+    "yuksek_ve_kritik_risk_sayisi": 1,
+    "ortalama_risk_puani": 13.13,
+    "ortalama_motorin_tl": 86.1,
+    "genel_yakit_carpani": 1.0129,
+    "en_riskli_rotalar": [
+      {
+        "rota": "Gaziantep -> Trabzon",
+        "aktif_sevkiyat": 1,
+        "ortalama_risk_puani": 55.0,
+        "yuksek_riskli_adet": 0
+      },
+      {
+        "rota": "Bursa -> Trabzon",
+        "aktif_sevkiyat": 2,
+        "ortalama_risk_puani": 45.0,
+        "yuksek_riskli_adet": 0
+      },
+      {
+        "rota": "Trabzon -> Adana",
+        "aktif_sevkiyat": 3,
+        "ortalama_risk_puani": 40.0,
+        "yuksek_riskli_adet": 1
+      },
+      {
+        "rota": "Gaziantep -> Bursa",
+        "aktif_sevkiyat": 2,
+        "ortalama_risk_puani": 40.0,
+        "yuksek_riskli_adet": 0
+      },
+      {
+        "rota": "Izmir -> Trabzon",
+        "aktif_sevkiyat": 1,
+        "ortalama_risk_puani": 35.0,
+        "yuksek_riskli_adet": 0
+      }
+    ]
+  },
+  "yuksek_riskli_sevkiyatlar": [
+    {
+      "sevkiyat_id": "SVK-G3-0093",
+      "tarih": "2026-11-24",
+      "rota": "Trabzon -> Adana",
+      "tasima_modu": "kara",
+      "durum": "gecikmeli",
+      "baz_ucret_tl": "5253.50",
+      "yakit_etkili_ucret_tl": "5345.96",
+      "risk_puani": 70,
+      "risk_seviyesi": "yuksek",
+      "ek_gecikme_saat": 16.0,
+      "tahmini_teslim_suresi_saat": "57.1",
+      "risk_nedenleri": [
+        "operasyonel_gecikme",
+        "kgm_kapali_Ilgar Geçidi",
+        "kgm_tek_serit_Pozantı Kavşağı (Ankara-Niğde Otoyolu)"
+      ],
+      "dayanak_kaynaklar": [
+        {
+          "kaynak": "AKARYAKIT",
+          "detay": "Trabzon motorin 86.5 TL/LT",
+          "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+          "erisim_tarihi": "2026-11-26"
+        },
+        {
+          "kaynak": "KGM",
+          "detay": "Ilgar Geçidi (kapali)",
+          "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+          "erisim_tarihi": "2026-11-26"
+        },
+        {
+          "kaynak": "KGM",
+          "detay": "Pozantı Kavşağı (Ankara-Niğde Otoyolu) (tek_serit)",
+          "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+          "erisim_tarihi": "2026-11-26"
+        }
+      ]
+    }
+  ]
+}

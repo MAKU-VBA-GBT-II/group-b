@@ -1,0 +1,91 @@
+﻿{
+  "mesaj_id": "MSG-G3-20261126-001",
+  "uretim_zamani": "2026-11-26T09:00:00Z",
+  "kaynak_ajan": "Ajan_1_WebToplayici",
+  "hedef_ajan": "Ajan_2_RiskAnaliz",
+  "veri": {
+    "mgm_uyarilari": [],
+    "kgm_yol_durumu": [
+      {
+        "guzergah": "Ilgar Geçidi",
+        "durum": "kapali",
+        "neden": "kar_ve_tipi",
+        "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+        "erisim_tarihi": "2026-11-26"
+      },
+      {
+        "guzergah": "Pozantı Kavşağı (Ankara-Niğde Otoyolu)",
+        "durum": "tek_serit",
+        "neden": "ust_yapi_calismasi",
+        "kaynak_url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/YolDanisma/GunlukYolDurumuBulteni.aspx",
+        "erisim_tarihi": "2026-11-26"
+      }
+    ],
+    "akaryakit_fiyatlari": [
+      {
+        "il": "Trabzon",
+        "urun": "motorin",
+        "fiyat_tl": 86.50,
+        "birim": "TL/LT",
+        "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+        "erisim_tarihi": "2026-11-26"
+      },
+      {
+        "il": "Antalya",
+        "urun": "motorin",
+        "fiyat_tl": 87.10,
+        "birim": "TL/LT",
+        "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+        "erisim_tarihi": "2026-11-26"
+      },
+      {
+        "il": "Ankara",
+        "urun": "motorin",
+        "fiyat_tl": 85.70,
+        "birim": "TL/LT",
+        "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+        "erisim_tarihi": "2026-11-26"
+      },
+      {
+        "il": "Istanbul",
+        "urun": "motorin",
+        "fiyat_tl": 84.60,
+        "birim": "TL/LT",
+        "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+        "erisim_tarihi": "2026-11-26"
+      },
+      {
+        "il": "Izmir",
+        "urun": "motorin",
+        "fiyat_tl": 86.00,
+        "birim": "TL/LT",
+        "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+        "erisim_tarihi": "2026-11-26"
+      },
+      {
+        "il": "Adana",
+        "urun": "motorin",
+        "fiyat_tl": 86.60,
+        "birim": "TL/LT",
+        "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+        "erisim_tarihi": "2026-11-26"
+      },
+      {
+        "il": "Bursa",
+        "urun": "motorin",
+        "fiyat_tl": 85.60,
+        "birim": "TL/LT",
+        "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+        "erisim_tarihi": "2026-11-26"
+      },
+      {
+        "il": "Gaziantep",
+        "urun": "motorin",
+        "fiyat_tl": 86.70,
+        "birim": "TL/LT",
+        "kaynak_url": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
+        "erisim_tarihi": "2026-11-26"
+      }
+    ]
+  }
+}
