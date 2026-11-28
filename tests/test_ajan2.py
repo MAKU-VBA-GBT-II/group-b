@@ -171,6 +171,7 @@ class Ajan2RiskTestleri(unittest.TestCase):
             )
 
             self.assertEqual(paket["hedef_ajan"], "Ajan_3_Denetim")
+            self.assertEqual(paket["durum"], "onay")
             self.assertGreater(paket["ozet"]["yuksek_ve_kritik_risk_sayisi"], 0)
 
             # İptal sevkiyatlarda teslim süresi kesinlikle boş kalmalı
